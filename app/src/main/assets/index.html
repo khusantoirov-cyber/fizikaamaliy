@@ -1,0 +1,1948 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amaliy Fizika 7-8-9 sinf — Dars Platformasi</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2535;
+    --bg4: #252d40;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf0;
+    --text2: #8b93a8;
+    --text3: #5a6278;
+    --accent: #6c63ff;
+    --accent2: #8b84ff;
+    --accent-bg: rgba(108,99,255,0.12);
+    --wow: #f59e0b;
+    --wow-bg: rgba(245,158,11,0.1);
+    --wow-border: rgba(245,158,11,0.25);
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.1);
+    --red: #ef4444;
+    --radius: 10px;
+    --radius2: 14px;
+    --shadow: 0 2px 12px rgba(0,0,0,0.4);
+    --sidebar-w: 280px;
+  }
+
+  /* ─── KUNDUZGI (LIGHT) REJIM ──────────────────────── */
+  [data-theme="light"] {
+    --bg: #f3f5fb;
+    --bg2: #ffffff;
+    --bg3: #eef1f8;
+    --bg4: #e2e7f3;
+    --border: rgba(20,30,60,0.09);
+    --border2: rgba(20,30,60,0.16);
+    --text: #1a1d2b;
+    --text2: #525a72;
+    --text3: #8a91a6;
+    --accent: #6c63ff;
+    --accent2: #5249e0;
+    --accent-bg: rgba(108,99,255,0.10);
+    --wow: #d97706;
+    --wow-bg: rgba(245,158,11,0.13);
+    --wow-border: rgba(217,119,6,0.32);
+    --green: #16a34a;
+    --green-bg: rgba(34,197,94,0.13);
+    --red: #dc2626;
+    --shadow: 0 2px 14px rgba(30,41,82,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { transition: background-color .25s ease, color .25s ease; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ─── SIDEBAR ─────────────────────────────────────── */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0; top: 0;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--accent-bg);
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+  }
+
+  .logo-text { font-size: 15px; font-weight: 600; color: var(--text); }
+  .logo-sub { font-size: 11px; color: var(--text3); }
+
+  .search-wrap {
+    position: relative;
+  }
+
+  .search-wrap input {
+    width: 100%;
+    padding: 8px 10px 8px 32px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  .search-wrap input:focus { border-color: var(--accent); }
+  .search-wrap input::placeholder { color: var(--text3); }
+
+  .search-icon {
+    position: absolute;
+    left: 9px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    font-size: 14px;
+  }
+
+  .sidebar-nav { padding: 12px 8px; flex: 1; }
+
+  .nav-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 4px 8px 6px;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .15s;
+    color: var(--text2);
+    font-size: 13px;
+    margin-bottom: 2px;
+    user-select: none;
+  }
+
+  .nav-item:hover { background: var(--bg3); color: var(--text); }
+  .nav-item.active { background: var(--accent-bg); color: var(--accent2); }
+
+  .nav-item .nav-icon { font-size: 15px; flex-shrink: 0; width: 20px; text-align: center; }
+  .nav-item .nav-label { flex: 1; }
+  .nav-item .nav-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 20px;
+    background: var(--bg4);
+    color: var(--text3);
+  }
+  .nav-item.active .nav-badge { background: rgba(108,99,255,0.2); color: var(--accent2); }
+
+  .sidebar-footer {
+    padding: 12px 16px;
+    border-top: 1px solid var(--border);
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .stat-mini {
+    background: var(--bg3);
+    border-radius: 8px;
+    padding: 8px 6px;
+    text-align: center;
+  }
+
+  .stat-mini .val { font-size: 16px; font-weight: 600; color: var(--text); }
+  .stat-mini .lbl { font-size: 10px; color: var(--text3); margin-top: 1px; }
+
+  .add-btn {
+    width: 100%;
+    padding: 9px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+  }
+  .add-btn:hover { background: var(--accent2); }
+  .add-btn:active { transform: scale(0.98); }
+
+  /* ─── MAIN ─────────────────────────────────────────── */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .topbar {
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    position: sticky; top: 0; z-index: 50;
+  }
+
+  .topbar-left { display: flex; align-items: center; gap: 14px; }
+  .breadcrumb { font-size: 12px; color: var(--text3); }
+  .page-title { font-size: 18px; font-weight: 600; color: var(--text); }
+
+  .topbar-actions { display: flex; gap: 8px; }
+
+  .btn {
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text);
+    transition: all .15s;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .btn:hover { background: var(--bg4); border-color: var(--border2); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .btn.primary:hover { background: var(--accent2); }
+  .btn.danger { background: rgba(239,68,68,0.1); border-color: rgba(239,68,68,0.3); color: var(--red); }
+  .btn.danger:hover { background: rgba(239,68,68,0.2); }
+  .btn.success { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); color: var(--green); }
+
+  .content {
+    padding: 28px;
+    flex: 1;
+  }
+
+  /* ─── VIEWS ─────────────────────────────────────────── */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ─── DASHBOARD ─────────────────────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+  }
+
+  .lesson-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    overflow: hidden;
+    transition: border-color .2s, transform .15s;
+    cursor: pointer;
+  }
+
+  .lesson-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+  }
+
+  .card-accent { height: 3px; }
+  .cat-mexanika .card-accent { background: linear-gradient(90deg, #6c63ff, #8b84ff); }
+  .cat-termodynamika .card-accent { background: linear-gradient(90deg, #f59e0b, #fcd34d); }
+  .cat-elektr .card-accent { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .cat-optika .card-accent { background: linear-gradient(90deg, #ec4899, #f472b6); }
+  .cat-magnit .card-accent { background: linear-gradient(90deg, #14b8a6, #5eead4); }
+  .cat-molekulyar .card-accent { background: linear-gradient(90deg, #a855f7, #c084fc); }
+
+  /* ─── SINF ALMASHTIRGICH ──────────────────────────── */
+  .grade-switch {
+    display: flex;
+    gap: 4px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 4px;
+    margin-top: 12px;
+  }
+  .grade-btn {
+    flex: 1;
+    padding: 7px 0;
+    border: none;
+    background: transparent;
+    color: var(--text2);
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    font-family: inherit;
+  }
+  .grade-btn:hover { color: var(--text); }
+  .grade-btn.active {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(108,99,255,0.35);
+  }
+
+  /* ─── REJIM TUGMASI (kun/tun) ─────────────────────── */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background .15s, border-color .15s;
+    font-family: inherit;
+  }
+  .theme-toggle:hover { background: var(--bg4); border-color: var(--accent); }
+  .theme-toggle .ti { font-size: 15px; }
+
+  .card-body {
+    padding: 14px;
+  }
+
+  .card-top-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-emoji {
+    font-size: 22px;
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg3);
+    border-radius: 9px;
+  }
+
+  .card-info { flex: 1; }
+  .card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 2px; }
+  .card-meta { font-size: 11px; color: var(--text3); }
+
+  .exp-chips { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; }
+
+  .exp-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text2);
+    padding: 4px 0;
+  }
+
+  .exp-chip.wow { color: #fcd34d; }
+
+  .chip-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .chip-badge.normal { background: var(--green-bg); color: #86efac; border: 1px solid rgba(34,197,94,0.2); }
+  .chip-badge.wow { background: var(--wow-bg); color: #fcd34d; border: 1px solid var(--wow-border); }
+
+  .card-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .count-badges { display: flex; gap: 6px; }
+
+  .count-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+
+  .count-badge.exp { background: var(--green-bg); color: #86efac; }
+  .count-badge.wow { background: var(--wow-bg); color: #fcd34d; }
+
+  .open-link { font-size: 11px; color: var(--accent2); }
+
+  /* ─── DETAIL VIEW ─────────────────────────────────── */
+  .detail-header { margin-bottom: 24px; }
+  .detail-icon-row { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+  .detail-big-icon { font-size: 32px; }
+  .detail-title { font-size: 22px; font-weight: 600; }
+  .detail-meta-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .detail-badge {
+    font-size: 12px; padding: 3px 10px; border-radius: 20px;
+    background: var(--bg3); color: var(--text2);
+    border: 1px solid var(--border);
+  }
+
+  .section-lbl {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin: 20px 0 10px;
+  }
+
+  .exp-detail-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 16px;
+    margin-bottom: 10px;
+    transition: border-color .2s;
+  }
+
+  .exp-detail-card.wow-card {
+    border-color: var(--wow-border);
+    background: rgba(245,158,11,0.04);
+  }
+
+  .exp-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .exp-card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .wow-card .exp-card-title { color: #fcd34d; }
+
+  .exp-card-desc { font-size: 13px; color: var(--text2); line-height: 1.65; margin-bottom: 10px; }
+  .wow-card .exp-card-desc { color: #d4a520; }
+
+  .materials-row { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+  .mat-tag {
+    font-size: 11px; padding: 3px 9px; border-radius: 20px;
+    background: var(--bg3); color: var(--text2);
+    border: 1px solid var(--border);
+  }
+
+  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .step-item { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--text2); }
+  .step-n {
+    width: 20px; height: 20px; min-width: 20px;
+    border-radius: 50%; background: var(--bg3);
+    border: 1px solid var(--border2); color: var(--text3);
+    font-size: 11px; display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .wow-card .step-n { background: rgba(245,158,11,0.15); border-color: var(--wow-border); color: #fcd34d; }
+
+  /* ─── WOW VIEW ─────────────────────────────────────── */
+  .wow-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+
+  .wow-big-card {
+    background: var(--bg2);
+    border: 1px solid var(--wow-border);
+    border-radius: var(--radius2);
+    padding: 16px;
+    transition: transform .15s;
+  }
+
+  .wow-big-card:hover { transform: translateY(-2px); }
+
+  .wow-big-header { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .wow-big-emoji { font-size: 28px; }
+  .wow-big-lesson { font-size: 11px; color: var(--wow); margin-bottom: 2px; font-weight: 500; }
+  .wow-big-title { font-size: 14px; font-weight: 500; color: #fcd34d; }
+  .wow-big-desc { font-size: 13px; color: #d4a520; line-height: 1.6; margin-bottom: 10px; }
+  .wow-mat-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .wow-mat-tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; background: rgba(245,158,11,0.1); color: #d4a520; border: 1px solid rgba(245,158,11,0.2); }
+
+  /* ─── EDITOR / MODAL ─────────────────────────────── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 200;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 720px;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+  }
+
+  .modal-header {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-title { font-size: 16px; font-weight: 600; }
+  .modal-close { background: none; border: none; color: var(--text3); font-size: 20px; cursor: pointer; padding: 2px 6px; border-radius: 6px; }
+  .modal-close:hover { background: var(--bg3); color: var(--text); }
+
+  .modal-body { padding: 20px 24px; }
+  .modal-footer { padding: 14px 24px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 8px; }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label { display: block; font-size: 12px; font-weight: 500; color: var(--text2); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .04em; }
+
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 9px 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: 13px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color .2s;
+  }
+
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { resize: vertical; min-height: 80px; }
+  .form-select option { background: var(--bg2); }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+  .exp-editor-section {
+    background: var(--bg3);
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+  }
+
+  .exp-editor-section.wow-section {
+    border-color: var(--wow-border);
+    background: rgba(245,158,11,0.05);
+  }
+
+  .exp-editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .exp-editor-title { font-size: 13px; font-weight: 500; color: var(--text2); display: flex; gap: 6px; align-items: center; }
+  .wow-section .exp-editor-title { color: #fcd34d; }
+
+  .add-exp-btn {
+    background: none; border: 1px dashed var(--border2);
+    color: var(--text3); border-radius: 8px;
+    padding: 8px; width: 100%; cursor: pointer;
+    font-size: 13px; transition: all .15s;
+  }
+  .add-exp-btn:hover { border-color: var(--accent); color: var(--accent2); background: var(--accent-bg); }
+
+  .exp-mini-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .exp-mini-drag { cursor: grab; color: var(--text3); font-size: 16px; padding-top: 2px; }
+  .exp-mini-content { flex: 1; }
+  .exp-mini-name { font-size: 13px; color: var(--text); font-weight: 500; }
+  .exp-mini-desc { font-size: 12px; color: var(--text3); margin-top: 2px; }
+  .exp-mini-actions { display: flex; gap: 4px; }
+  .icon-btn { background: none; border: none; cursor: pointer; color: var(--text3); padding: 4px; border-radius: 5px; font-size: 14px; transition: all .15s; }
+  .icon-btn:hover { background: var(--bg3); color: var(--text); }
+  .icon-btn.del:hover { background: rgba(239,68,68,0.1); color: var(--red); }
+
+  /* ─── EXP DETAIL EDITOR ─────────────────────────── */
+  .tag-input-wrap { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; padding: 6px 8px; background: var(--bg3); border: 1px solid var(--border2); border-radius: var(--radius); min-height: 38px; }
+  .tag-input-wrap:focus-within { border-color: var(--accent); }
+  .tag-item { background: var(--bg4); color: var(--text2); font-size: 12px; padding: 2px 8px; border-radius: 20px; display: flex; align-items: center; gap: 4px; }
+  .tag-item button { background: none; border: none; cursor: pointer; color: var(--text3); font-size: 12px; line-height: 1; }
+  .tag-item button:hover { color: var(--red); }
+  .tag-add-input { background: none; border: none; outline: none; color: var(--text); font-size: 12px; flex: 1; min-width: 100px; }
+
+  /* ─── TOAST ─────────────────────────────────────── */
+  #toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 13px;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all .2s;
+    pointer-events: none;
+    max-width: 320px;
+  }
+
+  #toast.show { opacity: 1; transform: translateY(0); }
+
+  /* ─── CONFIRM MODAL ─────────────────────────────── */
+  .confirm-modal { max-width: 400px; }
+
+  /* ─── EMPTY STATE ────────────────────────────────── */
+  .empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--text3);
+  }
+
+  .empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+  .empty-state h3 { font-size: 15px; color: var(--text2); margin-bottom: 6px; }
+  .empty-state p { font-size: 13px; }
+
+  /* ─── SCROLLBAR ──────────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--border2); }
+
+  /* ─── RESPONSIVE ─────────────────────────────────── */
+  @media (max-width: 768px) {
+    #sidebar { transform: translateX(-100%); transition: transform .3s; }
+    #sidebar.open { transform: translateX(0); }
+    #main { margin-left: 0; }
+    .content { padding: 16px; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+
+  /* ─── SETTINGS VIEW ──────────────────────────────── */
+  .settings-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius2);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .settings-section h3 { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .settings-section p { font-size: 12px; color: var(--text3); margin-bottom: 16px; }
+
+  .export-code {
+    background: var(--bg3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    color: var(--text2);
+    max-height: 160px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+
+  .highlight { background: rgba(108,99,255,0.15); border-radius: 4px; padding: 0 3px; color: var(--accent2); }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <div class="logo-icon">🧪</div>
+      <div>
+        <div class="logo-text">Fizika Lab</div>
+        <div class="logo-sub" id="logo-sub">7-sinf platformasi</div>
+      </div>
+    </div>
+    <div class="grade-switch">
+      <button class="grade-btn active" id="grade-7" onclick="switchGrade(7)">7-sinf</button>
+      <button class="grade-btn" id="grade-8" onclick="switchGrade(8)">8-sinf</button>
+      <button class="grade-btn" id="grade-9" onclick="switchGrade(9)">9-sinf</button>
+    </div>
+    <div class="search-wrap" style="margin-top:12px">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="sidebar-search" placeholder="Mavzu qidirish..." oninput="sidebarSearch()">
+    </div>
+  </div>
+
+  <div class="sidebar-nav">
+    <div class="nav-section-label">Ko'rinishlar</div>
+    <div class="nav-item active" onclick="showView('dashboard')" id="nav-dashboard">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Barcha darslar</span>
+      <span class="nav-badge" id="nb-total">18</span>
+    </div>
+    <div class="nav-item" onclick="showView('wow')" id="nav-wow">
+      <span class="nav-icon">⭐</span>
+      <span class="nav-label">WOW-tajribalar</span>
+      <span class="nav-badge" id="nb-wow">18</span>
+    </div>
+
+    <div class="nav-section-label" style="margin-top:14px">Kategoriyalar</div>
+    <div class="nav-item" onclick="filterCat('mexanika')" id="nav-mexanika">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">Mexanika</span>
+      <span class="nav-badge" id="nb-mexanika">13</span>
+    </div>
+    <div class="nav-item" onclick="filterCat('termodynamika')" id="nav-termodynamika">
+      <span class="nav-icon">🌡️</span>
+      <span class="nav-label">Issiqlik</span>
+      <span class="nav-badge" id="nb-termo">3</span>
+    </div>
+    <div class="nav-item" onclick="filterCat('elektr')" id="nav-elektr">
+      <span class="nav-icon">⚡</span>
+      <span class="nav-label">Elektr</span>
+      <span class="nav-badge" id="nb-elektr">1</span>
+    </div>
+    <div class="nav-item" onclick="filterCat('magnit')" id="nav-magnit">
+      <span class="nav-icon">🧲</span>
+      <span class="nav-label">Magnetizm</span>
+      <span class="nav-badge" id="nb-magnit">0</span>
+    </div>
+    <div class="nav-item" onclick="filterCat('molekulyar')" id="nav-molekulyar">
+      <span class="nav-icon">⚛️</span>
+      <span class="nav-label">Molekulyar</span>
+      <span class="nav-badge" id="nb-molekulyar">0</span>
+    </div>
+    <div class="nav-item" onclick="filterCat('optika')" id="nav-optika">
+      <span class="nav-icon">💡</span>
+      <span class="nav-label">Optika</span>
+      <span class="nav-badge" id="nb-optika">1</span>
+    </div>
+
+    <div class="nav-section-label" style="margin-top:14px">Boshqaruv</div>
+    <div class="nav-item" onclick="showView('settings')" id="nav-settings">
+      <span class="nav-icon">⚙️</span>
+      <span class="nav-label">Ma'lumotlar</span>
+    </div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="stats-row">
+      <div class="stat-mini"><div class="val" id="stat-lessons">18</div><div class="lbl">Dars</div></div>
+      <div class="stat-mini"><div class="val" id="stat-exps">0</div><div class="lbl">Tajriba</div></div>
+      <div class="stat-mini"><div class="val" id="stat-wow">18</div><div class="lbl">WOW</div></div>
+    </div>
+    <button class="add-btn" onclick="openAddLesson()">+ Yangi dars qo'shish</button>
+  </div>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main id="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div>
+        <div class="breadcrumb" id="breadcrumb">Barcha darslar</div>
+        <div class="page-title" id="page-title">Amaliy Fizika — 7-sinf</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Kun/tun rejimi">
+        <span class="ti" id="theme-icon">☀️</span>
+        <span id="theme-label">Kunduzgi</span>
+      </button>
+      <button class="btn" onclick="exportData()">⬇ Export JSON</button>
+      <button class="btn" id="back-btn" style="display:none" onclick="backToDashboard()">← Orqaga</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- DASHBOARD -->
+    <div class="view active" id="view-dashboard">
+      <div id="cards-container"></div>
+    </div>
+
+    <!-- DETAIL -->
+    <div class="view" id="view-detail">
+      <div id="detail-content"></div>
+    </div>
+
+    <!-- WOW VIEW -->
+    <div class="view" id="view-wow">
+      <div id="wow-container"></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="view-settings">
+      <div class="settings-section">
+        <h3>Ma'lumotlarni eksport qilish</h3>
+        <p>Barcha darslar va tajribalarni JSON formatida saqlang. Keyinchalik import qilish mumkin.</p>
+        <button class="btn success" onclick="exportData()">📥 JSON yuklab olish</button>
+      </div>
+      <div class="settings-section">
+        <h3>Ma'lumotlarni import qilish</h3>
+        <p>Oldindan saqlangan JSON faylni yuklang.</p>
+        <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+        <button class="btn" onclick="document.getElementById('import-file').click()">📤 JSON yuklash</button>
+      </div>
+      <div class="settings-section">
+        <h3>Barcha ma'lumotlarni tozalash</h3>
+        <p>Diqqat: bu amal qaytarib bo'lmaydigan! Barcha darslar o'chiriladi va boshlang'ich ma'lumotlar tiklanadi.</p>
+        <button class="btn danger" onclick="confirmReset()">🗑 Tozalash</button>
+      </div>
+      <div class="settings-section">
+        <h3>Joriy ma'lumotlar (JSON ko'rinishi)</h3>
+        <p>Quyida saqlangan barcha ma'lumotlar ko'rsatilgan.</p>
+        <div class="export-code" id="data-preview">...</div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ADD/EDIT LESSON MODAL -->
+<div class="modal-overlay" id="lesson-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="lesson-modal-title">Yangi dars qo'shish</div>
+      <button class="modal-close" onclick="closeLessonModal()">✕</button>
+    </div>
+    <div class="modal-body" id="lesson-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeLessonModal()">Bekor qilish</button>
+      <button class="btn primary" onclick="saveLesson()">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD/EDIT EXPERIMENT MODAL -->
+<div class="modal-overlay" id="exp-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="exp-modal-title">Tajriba qo'shish</div>
+      <button class="modal-close" onclick="closeExpModal()">✕</button>
+    </div>
+    <div class="modal-body" id="exp-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeExpModal()">Bekor qilish</button>
+      <button class="btn primary" onclick="saveExp()">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirm-modal">
+  <div class="modal confirm-modal">
+    <div class="modal-header">
+      <div class="modal-title" id="confirm-title">Tasdiqlash</div>
+      <button class="modal-close" onclick="closeConfirm()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:14px;color:var(--text2)" id="confirm-msg"></p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeConfirm()">Yo'q</button>
+      <button class="btn danger" id="confirm-ok-btn">Ha, o'chirish</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════
+const DEFAULT_DATA = [
+{id:1,grade:7,title:"Tekis va tezlanuvchan harakat",cat:"mexanika",icon:"🚗",experiments:[
+    {id:101,name:"To'lqinsimon va to'g'ri yo'l musobaqasi",wow:false,desc:"Ikki xil yo'ldan bir xil zoldirni o'tkazib, to'lqinsimon yo'l qisqa bo'lsa ham to'g'ri yo'ldan tezroq yetishini ko'rsatish.",materials:["Qiya tekislik (2 yo'lli)","2 ta bir xil zoldir"],steps:["Qiya tekislikda to'g'ri va to'lqinsimon yo'lni yasang","Ikki zoldirni bir vaqtda qo'yib yuboring","Natijani kuzating va muhokama qiling"]},
+    {id:102,name:"Pult boshqaruvli mashina — o'rtacha tezlik",wow:false,desc:"Mashina harakatlanadi, o'rtada to'xtaydi. O'rtacha tezlik = umumiy masofa / umumiy vaqt (to'xtalgan vaqt ham kiradi).",materials:["Pult boshqaruvli mashina","Sekundomer","Ruletka"],steps:["Mashinani harakatga keltiring, o'rtada to'xtating","Umumiy vaqt va masofani o'lchang","Formulani qo'llab tezlikni hisoblang"]},
+    {id:103,name:"Suv tomchi aravacha",wow:false,desc:"Teshikli idishdan suv tomib turadi. Tezlanuvchan harakatda tomchilar orasidagi masofa oshib, tekis harakatda bir xil bo'ladi.",materials:["Teshikli aravachali qurilma","Suv","Ip va og'irlik"],steps:["Aravachani stol ustiga, og'irlikni qirraga osing","Suv miqdorini sozlang","Tomchilar izini ko'ring, tahlil qiling"]},
+    {id:104,name:"Knopkali qiya tekislik",wow:false,desc:"Teng masofadagi knopkali qiya tekislikdan to'pni qo'yib yuborish — tovushlar tezlashib boradi = tezlanuvchan harakat.",materials:["Knopkali qiya tekislik"],steps:["To'pni yuqoridan qo'yib yuboring","Tovushlar orasidagi vaqt qisqarayotganini eshiting","Bu tezlanuvchan harakat ekanini tushuntiring"]},
+    {id:105,name:"WOW: Liftda tezlanish his qilish ⭐",wow:true,desc:"O'quvchilar liftga kiradilar. Ko'tarilishda tezlanuvchan (og'irlik seziladi), tekis — bir xil, tushishda sekinlanuvchan (yengilroq his). Jihosiz 'tajriba laboratoriyasi' — o'z tanangiz!",materials:["Lift","Telefon (akselerometr ilovasi)"],steps:["Liftga kirmadan akselerometr ilovasini oching","Ko'tarilish, to'xtash va tushish paytida qiymatlarni kuzating","Natijalarni sinf bilan muhokama qiling"]}
+  ]},
+  {id:2,grade:7,title:"Tezlanish va erkin tushish",cat:"mexanika",icon:"🎯",experiments:[
+    {id:201,name:"Vaznsizlik — teshikli baklashka",wow:false,desc:"Tagida va yonida teshigi bor rangli suv solingan baklashka tashlanadi. Erkin tushayotganda ikkala teshikdan ham suv chiqmaydi — vaznsizlik!",materials:["Teshikli baklashka","Rangli suv","Katta idish"],steps:["Baklashkaga rangli suv quyib, tepaga ko'taring","Birdan qo'yib yuboring","Suv chiqmasligini kuzating, tushintiring"]},
+    {id:202,name:"To'p va pat tajribasi",wow:false,desc:"Baland joydan to'p va pat tashlanadi. Havoda patning sekinroq tushishini kuzatib, havo qarshiligini tahlil qilish.",materials:["Kichik to'p","Pat yoki qog'oz"],steps:["Ikkalasini bir balandlikdan tashlang","Qaysi biri avval tushishini kuzating","Havo qarshiligini muhokama qiling"]},
+    {id:203,name:"Chizg'ich orqali reaksiya vaqti",wow:false,desc:"O'qituvchi chizg'ichni tushirib yuboradi, o'quvchi ushlab oladi. Ushlab olgan joyi orqali reaksiya vaqti hisoblanadi: t = √(2h/g).",materials:["30 sm chizg'ich"],steps:["Chizg'ichni 0 sm joyi pastda ushlab turing","Ogohlantirmay tushirib yuboring","Ushlab olingan joyni o'lchang, formulaga soling"]},
+    {id:204,name:"WOW: Quduq chuqurligini aniqlash ⭐",wow:true,desc:"Tosh tashlanadi, quduq tubiga urilganda ovoz eshitilguncha vaqt o'lchanadi. Formula orqali 2500 m gacha chuqurlikni topsa bo'ladi! Matematik aql bovar qilmaydigan natija.",materials:["Tosh","Sekundomer","Quduq yoki baland bino"],steps:["Toshni tashlab, ovoz eshitilguncha vaqtni o'lchang","t = t1 + t2, 9.8×t1²/2 = 343×t2 sistemasini yeching","Chuqurlikni hisoblang: h = 9.8×t1²/2"]}
+  ]},
+  {id:3,grade:7,title:"Jism massasi va zichligi",cat:"mexanika",icon:"⚗️",experiments:[
+    {id:301,name:"Sham va karbonat angidrid",wow:false,desc:"Har xil uzunlikdagi ikkita sham yopiq idishga qo'yiladi. Uzun sham birinchi o'chadi — CO₂ qiziganda zichligi kamayadi, tepaga yig'iladi.",materials:["2 ta sham (kalta va uzun)","Katta shisha idish","Gugurt"],steps:["Shamlarni yonma-yon qo'ying","Ustini katta idish bilan yoping","Qaysi biri avval o'chishini kuzating"]},
+    {id:302,name:"Uch qatlam suyuqlik ustuni",wow:false,desc:"Yog', suv, sirop ketma-ket quyiladi — zichlik farqi tufayli aralashmaydi. Temir, uzum, plastmassa turli qatlamlarda muallaq turadi.",materials:["Katta shaffof idish","Yog', suv, qizil sirop","Temir bo'lagi, uzum, plastmassa"],steps:["Siropni pastga, suvni o'rtaga, yog'ni tepaga quyib qo'ying","Turli zichliklardagi jismlarni tashlang","Ularning har xil qatlamlarda qolishini kuzating"]},
+    {id:303,name:"Issiq va sovuq suv aralashmasligi",wow:false,desc:"Issiq suvga qizil rang, sovuq suvga ko'k rang qo'shiladi. Issiq suvni tepaga qo'yilsa aralashmaydi (issiq suvning zichligi kichik).",materials:["2 ta stakan","Issiq va sovuq suv","2 xil rang","Karton bo'lagi"],steps:["Stakanlarga har xil rangli issiq/sovuq suv quyib tayyorlang","Issiq stakanni kartonga qo'ying, to'nkarib sovuq stakan ustiga qo'ying","Kartonni asta olib tashlang — suvlar aralashmaydi!"]},
+    {id:304,name:"Menzurka bilan zichlik aniqlash",wow:false,desc:"Sham va temir bo'lagining massasini tarozida, hajmini menzurkada o'lchab, zichligi hisoblanadi va jadval bilan solishtiriladi.",materials:["Menzurka","Elektron tarozi","Sham va temir bo'lagi","Suv"],steps:["Jism massasini tarozida o'lchang","Menzurkaga suv quyib, jism salgandan hajm farqini toping","ρ = m/V formulasiga qo'ying"]},
+    {id:305,name:"WOW: Quruq muz tajribasi ⭐",wow:true,desc:"Quruq muz (qattiq CO₂) suv ichiga tashlanadi — ulkan tutun bulutidaryo kabi oqadi. Sham o'chadi, sovun pufaklari havoda muallaq suzib turadi. CO₂ havovdan og'ir — ko'rinmas to'siq yaratadi!",materials:["2 kg quruq muz","10 litrli idish","Sham","Sovun pufagi o'yinchog'i"],steps:["Idishga quruq muzni soling","Oz miqdor issiq suv qo'shing — tutun ko'payadi","Sham va sovun pufagini tutun ustiga sinab ko'ring"]}
+  ]},
+  {id:4,grade:7,title:"Kuch. Og'irlik. Markazdan qochma kuch",cat:"mexanika",icon:"💫",experiments:[
+    {id:401,name:"Qog'oz — balgarka",wow:false,desc:"Balgarka diskining o'rniga halqa shaklida kesilgan qog'oz — gugurt cho'pini kesadi! Harakatdagi jism hatto qog'oz bo'lsa ham kuch ko'rsatishi mumkin.",materials:["Balgarka","Halqa qog'oz","Gugurt cho'pi"],steps:["Qog'ozni halqa shaklida kuting","Balgarкaga o'rnating, tezlik bering","Gugurt cho'pini sindirib ko'ring"]},
+    {id:402,name:"O'lik sirtmoq",wow:false,desc:"Sim sirtmoqda to'p aylantiriladi — markazdan qochma kuch to'pni sirtmoq ichida ushlab turadi.",materials:["Sim sirtmoq","Kichik to'p"],steps:["To'pni sirtmoqqa soling","Aylantirib, to'p tushib ketmasligini ko'rsating","Tezlikni kamaytirsangiz to'p tushishini ko'rsating"]},
+    {id:403,name:"Stakanda suv — aylantirib ko'rsatish",wow:false,desc:"Stakanga suv quyilib, ipga bog'langan to'rtburchak yuzada aylantiriladi. Suv to'kilmaydi! Massa va tezlikka bog'liqlik ko'rsatiladi.",materials:["Stakan","Suv","Ip","20x20 sm karton"],steps:["Stakanga suv quyib, karton tagiga bog'lang","Aylantiring — suv to'kilmaydi","Formulani F = mv²/R tushuntiring"]},
+    {id:404,name:"WOW: Baklashkani ip bilan ko'tarish ⭐",wow:true,desc:"Bir uchiga taxta, ikkinchi uchiga baklashka bog'langan qurilmani aylantirish — baklashka tepaga ko'tariladi! Markazdan qochma kuch tortish kuchini yengadi. Hayratlanarli ko'rinish.",materials:["Taxta","Baklashka","Ip"],steps:["Qurilmani aylantiring","Baklashkaning tepaga ko'tarilishini kuzating","F = mv²/R formulasini tushuntiring"]}
+  ]},
+  {id:5,grade:7,title:"Sirt taranglik kuchi",cat:"mexanika",icon:"💧",experiments:[
+    {id:501,name:"Setkali banka — suv to'kilmasin",wow:false,desc:"Temir setkali bankaga suv quyib to'nkarilsa suv to'kilmaydi. Sirt taranglik kuchi suvni ushlab turadi.",materials:["Temir setka tortilgan banka","Suv","Katta idish"],steps:["Bankaga suv quying","Karton bilan to'nkarib, kartonni olib tashlang","Suv to'kilmasligini kuzating"]},
+    {id:502,name:"Stakan va skripkalar",wow:false,desc:"Suv bilan liq to'la stakanga 10-15 ta skripka solinadi — suv to'kilmaydi. Sirt taranglik kuchi suv yuzini 'plyonka' kabi ushlab turadi.",materials:["Stakan","Suv","Skripkalar yoki temir bo'laklari"],steps:["Stakanni suv bilan liq to'ldiring (sirtga qadar)","Asta-sekin skripkalar soling","Nechta kirishini hisoblang"]},
+    {id:503,name:"Ramka va sim tajribasi",wow:false,desc:"Shampunli suvga botirgan simdan to'rtburchak ramkada suq parda hosil bo'ladi. O'rtadagi sim tortiladi — parda yuzasini kamaytiradi.",materials:["Simdan to'rtburchak ramka","Erkin sim","Shampunli suv"],steps:["Ramkani shampunli suvga boting","O'rtadagi sim pardani qanday tortishini kuzating","Bir tomoni yoqilsa sim ichkariga o'tishini ko'rsating"]},
+    {id:504,name:"WOW: Ping-pong to'pi markazga o'zi keladi ⭐",wow:true,desc:"Ping-pong to'pini suv yuzasiga sekin qo'yilsa, u chetga emas — markazga qarab keladi! Stakan chetlarida sirt taranglik kuchi markazga yo'nalgan. To'pni 'boshqarish' mumkin!",materials:["Suv to'la stakan","Ping-pong to'pi"],steps:["Stakanni suv bilan liq to'ldiring (sirtga qadar)","Ping-pong to'pini sekin chetga qo'ying","To'p markazga qarab suzib kelishini kuzating"]}
+  ]},
+  {id:6,grade:7,title:"Bosim va uning turlari",cat:"mexanika",icon:"📐",experiments:[
+    {id:601,name:"Lineyka va gazeta tajribasi",wow:false,desc:"Stol chetiga chiqarilgan lineykaga zarb berilsa qaytadi. Lekin ustiga gazeta qo'yilsa lineyka sinadi! Atmosfera bosimi gazetani ushlab turadi.",materials:["Lineyka","Gazeta yoki A4 qog'oz","Stol"],steps:["Lineykaning yarmini stol chetiga chiqaring","Gazeta bilan yoping","Keskin uring — lineyka sinadi!"]},
+    {id:602,name:"Mix va shar tajribasi",wow:false,desc:"Bitta mix sharni yoradi. Ko'p mix ustiga qo'yilgan shar yorilmaydi — bosim yuzaga taqsimlanadi.",materials:["Bitta mix","Mixlar to'plami (taxtada)","Shar"],steps:["Avval bitta mix bilan sinang — shar yoriladi","Ko'p mix to'plami ustida sinang — shar yorilmaydi","Bosim formulasini P = F/S tushuntiring"]},
+    {id:603,name:"Vakuummaker bilan shar",wow:false,desc:"Banka ichiga shar solib, vakuummaker bilan havo chiqariladi — bosim kamayib shar kengayadi. Kompressor bilan havo kiritilsa shar torayadi.",materials:["Vakuummaker","Banka","Shar"],steps:["Sharni bankaga soling","Vakuummaker bilan havo so'ring — shar kengayadi","Kompressor bilan havo kiring — shar torayadi"]},
+    {id:604,name:"WOW: Qalamlar suvdan chiqmaydigan paket ⭐",wow:true,desc:"Suv to'la paketga rangli qalamlar tiqiladi — suv oqmaydi! Polietilen qoplaydigan qalam sirtini o'rab oladi. Ajoyib vizual effekt!",materials:["Polietilen paket","Suv","Bir necha rangli qalam"],steps:["Paketni suv bilan to'ldiring","Qalamlarni tez-tez sanchib o'ting","Suv oqmasligini kuzating — sehrli ko'rinish!"]}
+  ]},
+  {id:7,grade:7,title:"Nyutonning 1 va 3-qonunlari",cat:"mexanika",icon:"⚡",experiments:[
+    {id:701,name:"Skater tajribasi",wow:false,desc:"Skater (bo'z mato) ustiga qo'yilgan narsalar — tez tortilganda joyida qoladi (inersiya). Sekin tortilganda harakatlanadi.",materials:["Skater/bo'z mato","Likopcha, olma, butilka"],steps:["Stol ustiga mato va narsalarni qo'ying","Sekin torting — narsalar harakat qiladi","Keskin torting — narsalar joyida qoladi!"]},
+    {id:702,name:"Ip ustida og'ir jism",wow:false,desc:"Sekin tortilsa — yuqori ip uziladi. Tez tortilsa — pastki ip uziladi. Inersiyaning vertikal ko'rinishi.",materials:["Og'ir jism (podshipnik)","Yuqori va pastki ip"],steps:["Og'ir jismni tepa ipga osib joylashtiring","Pastki ipni sekin torting — tepa ip uziladi","Pastki ipni keskin torting — pastki ip uziladi"]},
+    {id:703,name:"Qog'oz halqalar va taxta",wow:false,desc:"Qog'oz halqalarga ilingan taxta zarb bilan uriladi — taxta sinadi, halqalar yirtilmaydi. Inersiya tufayli.",materials:["Taxta","Qog'oz halqalar","Og'ir sterjen"],steps:["Qog'oz halqalarni ikki joyga osib, taxtani qo'ying","Sterjen bilan taxtani keskin uring","Taxta sinadi, qog'oz halqalar butun qoladi!"]},
+    {id:704,name:"WOW: Inersiyani tanada his qilish ⭐",wow:true,desc:"O'quvchilar safda turadi. O'qituvchi yurish-to'xtatish buyrug'ini beradi. To'satdan to'xtatilganda oldinga, to'satdan boshlaganda orqaga intilish his qilinadi. Jihosiz jonli tajriba!",materials:["Ochiq joy","O'quvchilar"],steps:["O'quvchilar safda turadi yoki o'tirib oladi","O'qituvchi buyruq beradi: 'Yuring!' va to'satdan: 'To'xtang!'","His qilingan kuchni muhokama qiling"]}
+  ]},
+  {id:8,grade:7,title:"Elastiklik kuchi",cat:"mexanika",icon:"🌀",experiments:[
+    {id:801,name:"Prujinali o'yinchoq Slow-motion",wow:false,desc:"Prujinali o'yinchoq tashlanadi. Slow-motion videoda pastki qismi bir lahzaga turadi — inersiya tufayli.",materials:["Prujinali o'yinchoq","Telefon (slow-motion)"],steps:["Slow-motion rejimini oching","O'yinchoqni yuqoridan qo'yib yuboring","Pastki qismning 'qolishini' kuzating"]},
+    {id:802,name:"Guk qonuni tajribasi",wow:false,desc:"Har xil massalar osilgan prujinalar cho'zilishi o'lchanadi. F = k×ΔL formulasi tajriba orqali keltirib chiqariladi.",materials:["Har xil bikrlikdagi prujinalar","Har xil massalar","Chizg'ich","Tarozi"],steps:["Prujinani osib, massasiz uzunligini belgilang","Har xil massalar osilib, cho'zilishni o'lchang","Grafik chizing: F-ΔL"]},
+    {id:803,name:"Ikki shar — havo almashinuvi",wow:false,desc:"Katta va kichik shar shlang bilan ulanadi — kichkina shardagi havo katta sharga o'tadi! Kichkina sharning k koeffitsienti kattaroq.",materials:["2 ta shar (katta va kichik)","Pnevmatik shlang"],steps:["Kichikni ko'p, kattani kam ishiring","Pnevmatik shlang bilan ulang","Kichkina shardagi havo katta sharga o'tadi!"]},
+    {id:804,name:"WOW: Shar-moshina reaktiv kuch ⭐",wow:true,desc:"Ishirilgan shar bog'langan moshina qo'yib yuboriladi — shar kichraygan sari moshina TEZLASHADI! Elastiklik kuchi shar kichrayishi bilan ortadi.",materials:["Kichik mashina","Havo shari","Ip"],steps:["Sharni to'liq ishiring, mashinaga bog'lang","Tekis joyga qo'ying, qo'lib yuboring","Moshina oxirida tezlashishini kuzating"]}
+  ]},
+  {id:9,grade:7,title:"Ishqalanish kuchi",cat:"mexanika",icon:"🔥",experiments:[
+    {id:901,name:"Kitob varaqlari ajralmasligi",wow:false,desc:"Ikkita kitob varaqlarsini bir-biriga kiritilsa — ajratsib bo'lmaydi! Ishqalanish kuchining kumulyativ kuchi hayratlanarli.",materials:["2 ta kitob yoki daftar"],steps:["Ikkala kitob varaqlarsini bir-biriga kiritib o'ting","Ikki tomonga tortib ko'ring","Kuch qo'shish uchun tortib ko'ring"]},
+    {id:902,name:"Qiyalikda 4 xil jism",wow:false,desc:"Temir, plastmassa, taxta, rezinka — turli μ koeffitsienti tufayli qiya tekislikdan turli tezlikda tushadi.",materials:["Parta (qiya tekislik sifatida)","4 xil materialdan bo'laklar"],steps:["Partani tirkash bilan ko'taring","Har xil jismlarni navbat bilan qo'yib ko'ring","Tezliklarni solishtiring"]},
+    {id:903,name:"Arqonni turnikka o'rash",wow:false,desc:"Arqon 6-7 marta turnikka o'raladi. Eng kuchli o'quvchi ham arqonni siljita olmaydi — ishqalanish kuchi qo'shiladi!",materials:["Arqon","Turnik"],steps:["Arqonni 6-7 marta turnikka o'rang","Eng kuchli o'quvchini chaqiring","Arqon siljimasligini ko'rsating"]},
+    {id:904,name:"WOW: Bitta qo'l bilan odamni ko'tarish ⭐",wow:true,desc:"Bitta qo'l bilan odamni ko'tarish mumkin emas. Lekin devorga suyanib turgan bolani bitta qo'l bilan ko'tarib tursa bo'ladi! Ishqalanish og'irlik kuchini yengdi.",materials:["Tekis devor","2 ta o'quvchi"],steps:["1-o'quvchi egilib devorga suyanadi","2-o'quvchi uning ustiga tekis chiqadi","1-o'quvchi bir qo'lini qo'yib yuboradi — tushib ketmaydi!"]}
+  ]},
+  {id:10,grade:7,title:"Gidrostatik bosim va Paskal qonuni",cat:"mexanika",icon:"🌊",experiments:[
+    {id:1001,name:"Ko'p teshikli baklashka",wow:false,desc:"Har xil balandlikdagi teshiklardan suv oqadi — pastki teshikdan kuchli, yuqorisidan sust. P = ρgh.",materials:["Ko'p teshikli baklashka","Rangli suv","Katta idish"],steps:["Baklashkani to'ldiring","Har xil balandlikdagi teshiklardan suv oqishini kuzating","P ~ h ekanini muhokama qiling"]},
+    {id:1002,name:"Hamma tomondan bir xil puflab chiqarish",wow:false,desc:"Hamma tomondan teshilgan baklashkani puflash — hamma teshikdan bir xil miqdorda suv chiqadi. Paskal qonuni.",materials:["Hamma tomonidan teshilgan baklashka","Suv"],steps:["Baklashkani suv bilan to'ldiring","Og'zini puflab bosing","Hamma teshikdan bir xil suv chiqishini kuzating"]},
+    {id:1003,name:"Gidravlik press va yong'oq",wow:false,desc:"Ikki barmoq bilan sindirib bo'lmaydigan yong'oq gidravlik press bilan bir zumda sinadi! Kichik kuch → katta kuch.",materials:["Gidravlik press","Yong'oq"],steps:["Yong'oqni qo'l bilan sindirib ko'ring (bo'lmaydi)","Gidravlik pressga joylashtiring","Sindirib ko'rsating va formulani tushuntiring"]},
+    {id:1004,name:"WOW: Geron fontani ⭐",wow:true,desc:"Ikki baklashka va ikki shlang — nasossiz fontан! Suv yuqoridan quyilganda, pastdagi baklashka siqiladi va o'rtadagi baklashkadan suv tepaga otiladi.",materials:["3 ta baklashka","2 xil rangli suv","2 ta shlang","Tiqa"],steps:["Sxemani doskaga chizing","Suv quyib, sistemani yig'ing","Fontanning qanday ishlashini kuzating"]}
+  ]},
+  {id:11,grade:7,title:"Reaktiv harakat",cat:"mexanika",icon:"🚀",experiments:[
+    {id:1101,name:"O'chirg'ich — aravacha",wow:false,desc:"O'chirg'ich bog'langan aravaga o'chirg'ich ishlatilsa — teskari tomonga harakat qiladi.",materials:["O'tirg'ich bog'langan aravacha","O'chirg'ich"],steps:["O'chirg'ichni aravaga mahkam bog'lang","Tekis joyda o'chirg'ichni ishga tushiring","Aravaning teskari tomonga ketishini kuzating"]},
+    {id:1102,name:"Aylanuvchi stakan",wow:false,desc:"Egri teshikli stakandan suv chiqsa — stakan aylanadi. Reaktiv kuch harakatga keltiradi.",materials:["Egri teshikli stakan","Suv","Ip"],steps:["Stakanni ipga osib, suv bilan to'ldiring","Teshiklardan suv chiqishini kuzating","Stakan teskari tomonga aylanishini kuzating"]},
+    {id:1103,name:"Ikkita baklashka — tezlik farqi",wow:false,desc:"Bir xil spirt bilan 0.5 l va 20 l baklashka. Kichigi uzoqroqqa uchadi — yuzasi kichik → tezlik katta.",materials:["0.5 l va 20 l baklashka","Spirt (oz)","Tashqi ochiq joy"],steps:["Baklashkalarga ozgina spirt quying","Bir xil yerda yoqing","Kichigi uzoqroqqa uchishini kuzating"]},
+    {id:1104,name:"WOW: Spirtli baklashka raketa ⭐",wow:true,desc:"0.5 l baklashkaga spirt qulib, qopqog'i teshilgan holda yoqiladi — baklashka gullab uchib ketadi! SPEKTAKL!",materials:["0.5 l baklashka","99% spirt","Teshikli qopqoq","Tashqi ochiq joy"],steps:["MUHIM: Faqat tashqi ochiq maydonda!","Baklashkaga ozgina spirt quying, chayqating","Og'zini pastga qaratib, olov bering — uchirish!"]}
+  ]},
+  {id:12,grade:7,title:"Atmosfera bosimi",cat:"mexanika",icon:"🌬️",experiments:[
+    {id:1201,name:"Vakuummaker bilan baklashka",wow:false,desc:"Baklashka ichidagi havo so'rilganda — tashqi atmosfera bosimi baklashkani ezib yuboradi.",materials:["Vakuummaker","Plastik baklashka (0.5 l va 10 l)"],steps:["Baklashkani vakuummakerga ulang","Havo so'ring","Baklashka ezilishini kuzating"]},
+    {id:1202,name:"Trubochkali baklashka",wow:false,desc:"Trubochkali baklashkadan suv chiqmaydi. Trubochkani ko'targanda chiqadi. Atmosfera bosimi gidrostatik bosimni ushlab turgan.",materials:["Trubochkali baklashka","Suv"],steps:["Baklashkani suv bilan to'ldiring","Trubochkani suvga botirib ko'rsating — suv oqmaydi","Trubochkani ko'taring — suv oqadi"]},
+    {id:1203,name:"Varonka va shar",wow:false,desc:"Havo so'rilganda shar varonkaga yopishadi — atmosfera bosimi hamma yo'nalishda ta'sir qilishini ko'rsatadi.",materials:["Varonka","Shar"],steps:["Sharni varonka og'ziga qo'ying","Varonkadan kuchli havo puflang","Shar varonkaga yopishib qolishini kuzating"]},
+    {id:1204,name:"WOW: Metall idishni ezish tajribasi ⭐",wow:true,desc:"Metall idishga ozgina suv quyladi, qaynatilib, ichini bug' bilan to'ldiradi. Birdan sovuq suvga solinadi — QAQSHATQICH ovoz bilan eziladi!",materials:["Metall idish (banka)","Plita","Sovuq suv to'la idish"],steps:["Idishga 1-2 qoshiq suv quying","Qaynatingacha qiziting — bug' to'lsin","Birdan sovuq suvga boting — BANG!"]}
+  ]},
+  {id:13,grade:7,title:"Ish va Energiya",cat:"mexanika",icon:"⚡",experiments:[
+    {id:1301,name:"Tosh ko'tarish — fizik ish yo'q?",wow:false,desc:"1 soat qimirlamasdan tosh ushlab turish — fizik ish emas! A = F×S, S = 0 bo'lsa A = 0.",materials:["Og'ir tosh"],steps:["Og'ir toshni ko'taring, 1 daqiqa ushlab turing","Charchadingizmi? Ha — lekin fizik ish bajarmadingiz!","A = F×S formulasini tushuntiring"]},
+    {id:1302,name:"Sakraydigan o'yinchoq — potensial energiya",wow:false,desc:"Shar ichiga solingan o'yinchoq yerga tashlanadi — rezinka yig'ilgan energiyani chiqarib, tepaga sakraydi!",materials:["Sakraydigan o'yinchoq","Shar"],steps:["Sharni yerga tashlab ko'ring — sakramaydi","Ichini ochib ko'rsating","Sharni tekis tashlang — ichidagi o'yinchoq sakraydi!"]},
+    {id:1303,name:"Generator bilan tosh tajribasi",wow:false,desc:"Balandlikdan tushayotgan tosh generatorni aylantiradi — LED yonadi. Potensial energiya → kinetik → elektr.",materials:["Generator","LED","Tosh","Ip"],steps:["Toshni ip orqali generatorga bog'lang","Balandlikdan tushiring","LED yonishini kuzating"]},
+    {id:1304,name:"WOW: Burnimni sindirmasin — Mayatnik ⭐",wow:true,desc:"10 kg suv to'la baklashka turnikka uzoq arqonga bog'lanadi. O'qituvchi uni burniga taqab qo'yib yuboradi — baklashka qaytib kelib burniga tegmaydi! Energiya saqlanish qonuni jonli namoyishi.",materials:["10 litrli baklashka (suv bilan)","Uzun arqon","Turnik"],steps:["Baklashkani burni barobargacha ko'taring","Itarib yubormang — shunchaki qo'yib yuboring","Baklashka qaytib keladi, lekin burniga tegmaydi!"]}
+  ]},
+  {id:14,grade:7,title:"Issiqlik va energiya",cat:"termodynamika",icon:"🌡️",experiments:[
+    {id:1401,name:"Shar — issiq suvda kengayish",wow:false,desc:"Og'ziga shar kiydirilgan sovuq baklashka qaynayotgan suvga tushiriladi — shar o'z-o'zidan shishadi!",materials:["Baklashka","Havo shari","Qaynayotgan suv","Idish"],steps:["Sharni baklashka og'ziga kiydiring","Baklashkani issiq suvga boting","Shar o'z-o'zidan shishishini kuzating"]},
+    {id:1402,name:"Alyuminiy va yog'och issiqlik o'tkazuvchanligi",wow:false,desc:"Qaynayotgan suvga alyuminiy va yog'och tayoqcha tushiriladi — alyuminiy bir zumda qiziydi, yog'och sovuq qoladi.",materials:["Tefal yoki qaynayotgan suv","Alyuminiy tayoqcha","Yog'och tayoqcha"],steps:["Tayoqchalarni bir vaqtda suvga boting","30 soniyadan keyin ushlab ko'ring","Alyuminiy issiq, yog'och sovuqligini his qiling"]},
+    {id:1403,name:"Yoqilg'ilar solishtirish",wow:false,desc:"Ko'mir, kerosin, dizel, benzin, propan-butan — yonish xususiyatlari, harorat, xavflilik solishtiriladi.",materials:["Har xil yoqilg'i (oz)","Maxsus idishlar","Gugurt"],steps:["Har bir yoqilg'ini alohida idishda ko'rsating","Yonish tezligi va intensivligini solishtiring","Q = q×m formulasini tushuntiring"]},
+    {id:1404,name:"WOW: Benzin portlashi yopiq idishda ⭐",wow:true,desc:"Benzinning 3 tomchi ochiq idishda yonishi oddiy. Lekin yopiq idishda — PORTLASH! Shu sababli benzin uchun maxsus saqlash kerak.",materials:["Kichik metall idish","Benzin (3 tomchi)","Qopqoq","Himoya ko'zoynagi"],steps:["XAVFSIZLIK: Tashqi maydonda, himoya bilan!","Idishga 3 tomchi benzin toming","Yopib, chetdan olov bering — POP!"]}
+  ]},
+  {id:15,grade:7,title:"Issiqlik miqdori va aralashma",cat:"termodynamika",icon:"🔥",experiments:[
+    {id:1501,name:"Suv va yog' harorati tajribasi",wow:false,desc:"Suv va yog'ni isitib, issiqlik o'tkazuvchanliklarini solishtirish. Solishtirma issiqlik sig'imi Q = c×m×Δt.",materials:["Suv","Yog'","Plita","Idish","Termometr"],steps:["Teng massali suv va yog'ni bir xil olovda qiziting","Haroratlarini vaqt bo'yicha kuzating","Suv sekin, yog' tez qizishini tahlil qiling"]},
+    {id:1502,name:"Issiq va sovuq suvni aralashtirib harorat hisoblash",wow:false,desc:"Formuladan nazariy harorat hisoblanadi, tajribada tekshiriladi. Q₁ = Q₂ tamoyili.",materials:["Issiq va sovuq suv","Termometr","Tarozi","Stakan"],steps:["Issiq va sovuq suvning massa va haroratini o'lchang","Nazariy haroratni formuladan hisoblang","Aralashtirib, termometr bilan tekshiring"]},
+    {id:1503,name:"Muz — erish jarayoni grafigi",wow:false,desc:"Muzni qizdirish jarayonini kuzatish. Erish paytida harorat o'zgarmaydi. Fazilar diagrammasi.",materials:["Muz","Plita","Termometr","Grafik qog'oz"],steps:["Muzga termometr tiqing, qizitishni boshlang","Har 30 soniyada haroratni yozing","Grafik chizing: harorat – vaqt"]},
+    {id:1504,name:"WOW: Turli suyuqliklarning qaynash harorati ⭐",wow:true,desc:"Suv, spirt, yog' va glitsirin — hammasi bir xil isitiladi. Spirt 78°C, suv 100°C, glitsirin 290°C da qaynaydi. Bir idishda uchta turli qaynash!",materials:["Suv","Spirt","Yog'","Glitsirin","Plita","Kichik idishlar","Termometr"],steps:["Har bir suyuqlikni kichik idishga soling","Katta idishdagi suvga joylashtiring, isiting","Qaysi biri qaysi haroratda qaynarligini kuzating"]}
+  ]},
+  {id:16,grade:7,title:"Jismlarning elektrlanishi",cat:"elektr",icon:"⚡",experiments:[
+    {id:1601,name:"Shar devorga yopishish",wow:false,desc:"Havo shari sochga ishqalanib zaryadlanadi va devorda yopishib qoladi. Elektrostatik kuch.",materials:["Havo shari","Soch"],steps:["Sharni sochga 10 marta ishqalang","Devorda yopishtirib ko'ring","Yopishib qolishini kuzating"]},
+    {id:1602,name:"Tayoqchalar ittirishi va tortishishi",wow:false,desc:"Ebonit-ebonit: qochadi. Ebonit-shisha: tortishadi. Ikki xil zaryad bor.",materials:["Ebonit va shisha tayoqcha","Mo'yna va shoyi mato"],steps:["Ebonit tayoqchani mo'ynaga ishqalang","Ikkinchi ebonit tayoqchani ham ishqalang","Ikkalasini yaqinlashtirsang — itarishadi!"]},
+    {id:1603,name:"Limon batareyasi",wow:false,desc:"3 ta limon ketma-ket ulanib, LED yonadi. Galvanik element: kimyoviy energiya → elektr.",materials:["3 ta limon","Mis va rux simlar","LED"],steps:["Har bir limonga mis va rux simlarni kiring","Ketma-ket ulang","LED yonishini kuzating"]},
+    {id:1604,name:"WOW: Faraday qafasi — telefon signal yo'q! ⭐",wow:true,desc:"Metall qafas ichiga telefon solinadi — signal yo'q! Samolyot metall korpusi ham Faraday qafasi. Chaqmoqdan himoya!",materials:["Metall to'r (Faraday qafasi)","2 ta telefon"],steps:["Bir telefonni qafas ichiga soling","Ikkinchi telefon bilan qo'ng'iroq qiling","Signal yo'qligini eshiting"]}
+  ]},
+  {id:17,grade:7,title:"Bernuli qonuni",cat:"mexanika",icon:"✈️",experiments:[
+    {id:1701,name:"Varonka va koptok",wow:false,desc:"Varonkadan kuchli havo puflansa koptok tushib ketmaydi, yopishib qoladi! Tezlik katta → bosim kichik.",materials:["Varonka","Tennis to'pi","Kompressor"],steps:["Tennis to'pini varonkaga soling","Kompressordan kuchli havo yuboring","To'p varonkaga yopishib qolishini kuzating"]},
+    {id:1702,name:"Venturi trubkasi",wow:false,desc:"Tor quvurdan havo o'tganda rangli suv yuqoriga ko'tariladi — tor joyda tezlik katta, bosim kichik.",materials:["Venturi trubkasi","Rangli suv","Stakan"],steps:["Trubkani rangli suv solingan stakanga ulang","Og'iz bilan yoki kompressor bilan puflang","Suv yuqoriga ko'tarilishini kuzating"]},
+    {id:1703,name:"Samolyot qanoti — parallel qog'oz",wow:false,desc:"Ikkita A4 qog'oz parallel ushlanib, orasidan puflansa — qo'g'ozlar bir-biriga tortilib keladi. Bu samolyot ko'tarish kuchining prinsipi!",materials:["2 ta A4 qog'oz","Ikkita ingichka tayoq"],steps:["Qog'ozlarni parallel 5 sm masofada ushlang","Orasidan kuchli havo puflang","Qog'ozlar bir-biriga tortiladi — Bernuli!"]},
+    {id:1704,name:"WOW: To'p havo yostiqda muallaq ⭐",wow:true,desc:"Kompressordan yuborilgan kuchli havo oqimi — to'pni havoda muallaq ushlab turadi! To'p 'ko'rinmas' havo yostiqda o'tiradi. Qo'l bilan turtilsa qaytadi.",materials:["Kompressor","Tennis to'pi","Keng og'izli trubka"],steps:["Trubkani yuqoriga yo'naltiring","Kompressordan kuchli havo yuboring","Tennis to'pini havoga qo'ying — muallaq qoladi!"]}
+  ]},
+  {id:18,grade:7,title:"Yorug'likning optikasi",cat:"optika",icon:"💡",experiments:[
+    {id:1801,name:"Teshikli plastinkalar — to'g'ri chiziq",wow:false,desc:"Qorong'uda sham va 2 ta teshikli plastinka. Ikkala teshik bir chiziqda bo'lgandagina yorug'lik o'tadi.",materials:["Sham","2 ta teshikli plastinka","Qorong'u xona"],steps:["Sham va plastinkalarni bir chiziqqa tekislang","Ikkala teshikdan nur o'tishini kuzating","Plastinkadan birini siljitirsangiz nur to'xtaydi"]},
+    {id:1802,name:"Lazer va un zarralari",wow:false,desc:"Havo toza bo'lsa nur ko'rinmaydi. Un zarralari purkalsa — lazer nuri xona bo'ylab cho'zilgan yorqin chiziq bo'lib ko'rinadi.",materials:["Lazer","Un yoki kraxmal"],steps:["Xonani qorong'ulashtiring","Lazerni yoqing — nur ko'rinmaydi","Un zarralari purkalinglar — nur chiziq bo'lib ko'rinadi!"]},
+    {id:1803,name:"Periskop bilan to'siq ortini ko'rish",wow:false,desc:"Periskop yordamida stol, devor yoki to'siq ortidagi narsalar ko'riladi. Ikkita 45° oyna prinsipi.",materials:["Tayyor periskop yoki o'zingiz yasang"],steps:["Periskopni to'siq yoniga qo'ying","To'siq ortidagi narsalarni ko'ring","Oynalarning 45° burchagi sababini tushuntiring"]},
+    {id:1804,name:"WOW: Lazer suv bilan birga egiladi ⭐",wow:true,desc:"Teshilgan baklashkadan suv oqib tushadi. Lazer nuri suv oqimiga yo'naltirilsa — NUR SUV BILAN BIRGA EGILADI! To'la ichki qaytish hisobiga. Optik tolaning ishi xuddi shunday.",materials:["Teshikli baklashka","Suv","Lazer","Qorong'u xona","Katta idish"],steps:["Baklashkani suvga to'ldiring","Lazerni teshik tomon yo'naltiring","Suv oqimida nur egilishini qorong'uda kuzating"]}
+  ]},
+{id:801,grade:8,title:"Jismlarning elektrlanishi. Elektr zaryad",cat:"elektr",icon:"⚡",experiments:[
+    {id:80101,name:"Shar devorga yopishadi",wow:false,desc:"Havo shari matoga ishqalanib zaryadlanadi va devorga \"yopishib\" qoladi. U yerga tushib ketishi kerak edi — uni elektrostatik kuch ushlab turibdi.",materials:["Havo shari","Mato (jun yoki sintetik)"],steps:["Sharni matoga tez-tez ishqalang","Devorga yoki shiftga yaqinlashtiring","Yopishib qolishini kuzating"]},
+    {id:80102,name:"Ebonit va shisha tayoqcha — ikki xil zaryad",wow:false,desc:"Ebonitni mo'ynaga, shishani shoyiga ishqalab qog'ozlarga yaqinlashtiriladi — ikkalasi ham tortadi. Lekin ikki ebonit bir-biridan qochadi, ebonit-shisha esa tortishadi. Demak ikki xil zaryad bor: musbat (+) va manfiy (-).",materials:["Ebonit tayoqcha","Shisha tayoqcha","Mo'yna va shoyi mato","Mayda qog'ozlar"],steps:["Ebonitni mo'ynaga, shishani shoyiga ishqalang","Qog'ozlarni tortishini ko'rsating","Ikki bir xil tayoqchani yaqinlashtiring — itariladi"]},
+    {id:80103,name:"Sintetik kiyimda statik zaryad",wow:false,desc:"Sintetik kiyim kiygan o'quvchilar ishqalanishdan zaryadlanadi. Qo'l tegishganda \"tok urishi\" — tanada to'plangan zaryadlar boshqa jismga sakrab o'tayotgani.",materials:["Sintetik kiyim kiygan 2 o'quvchi"],steps:["Kiyimni ishqalating","Qo'llarni yaqinlashtiring","Sezilgan \"chiqillash\"ni muhokama qiling"]},
+    {id:80104,name:"WOW: Polietilen lenta havoda muallaq ⭐",wow:true,desc:"Polietilen lenta va plastik truba bir xil matoga ishqalanadi — ikkalasi ham manfiy zaryad oladi. Lenta havoga otilganda, trubadan shunchalik qochadiki, yerga tushmay havoda muallaq turadi!",materials:["Polietilen lenta (paket bo'lagi)","Plastik truba","Mato"],steps:["Lenta va trubani bir matoga ishqalang","Lentani havoga oting, trubani tagidan tuting","Lenta havoda muallaq turishini kuzating"]}
+  ]},
+  {id:802,grade:8,title:"Elektroskop. O'tkazgich va dielektriklar",cat:"elektr",icon:"🔌",experiments:[
+    {id:80201,name:"Baklashka-folga elektroskop",wow:false,desc:"Baklashka va folgadan yasalgan oddiy elektroskop. Sochga ishqalangan shar simga tekkizilsa, ichkaridagi folgalar bir xil zaryad olib bir-biridan qochadi va ochiladi.",materials:["Baklashka","Folga","Havo shari"],steps:["Sharni sochga ishqalang","Elektroskop simiga tekkizing","Folgalarning ochilishini kuzating"]},
+    {id:80202,name:"O'tkazgich va dielektrik sinovi",wow:false,desc:"220V manbaga ulangan, zanjiri ochiq lampochkali moslama. Ochiq uchlarga turli narsalar qo'yiladi: temir va grafit — yonadi (o'tkazgich), plastik, rezina, shisha — yonmaydi (dielektrik).",materials:["220V lampochkali zanjir","Temir, plastik, rezina, shisha, qalam grafiti"],steps:["IZOH: narsalarni qo'ygach manbaga ulang","Har birini navbat bilan zanjirga qo'ying","Qaysi biri tok o'tkazishini aniqlang"]},
+    {id:80203,name:"Qizdirilgan shisha o'tkazgichga aylanadi",wow:false,desc:"Sovuq shisha tok o'tkazmaydi (chiroq yonmaydi). Gaz gorelka bilan qizdirilganda esa bog'langan zaryadlar erkin harakatlanadi — lampochka yonadi! Dielektrik qizdirilganda o'tkazgichga aylanadi.",materials:["Shisha tayoqcha","Gaz gorelka","220V lampochkali zanjir"],steps:["Shishani zanjirga ulang — chiroq yonmaydi","Gorelka bilan qizdiring","Lampochka yonishini kuzating"]},
+    {id:80204,name:"WOW: Sham havoni ionlashtiradi ⭐",wow:true,desc:"Zaryadlangan elektroskop folgalari ochiq turibdi. Yonayotgan sham simga tekkizilmasdan yaqinlashtiriladi — sham olovi havoni ionlarga parchalaydi, havo o'tkazgichga aylanadi va zaryad havo orqali chiqib ketadi. Folgalar o'z-o'zidan yopiladi!",materials:["Zaryadlangan elektroskop","Yonayotgan sham"],steps:["Elektroskopni zaryadlang — folgalar ochiladi","Yonayotgan shamni simga yaqinlashtiring","Folgalarning yopilishini kuzating"]}
+  ]},
+  {id:805,grade:8,title:"Elektr toki va tok manbalari",cat:"elektr",icon:"🔋",experiments:[
+    {id:80501,name:"Generator — mexanik energiyadan tok",wow:false,desc:"Qo'l generatori valini aylantirganda mexanik energiya elektr energiyaga aylanadi va LED yonadi. Shamol turbinasi, GES va IES ham aynan shu prinsipda ishlaydi.",materials:["Qo'l generatori","LED"],steps:["Generatorni LEDga ulang","Valni aylantiring","LED yonishini kuzating"]},
+    {id:80502,name:"Limon galvanik element",wow:false,desc:"3 ta limonga mis va rux simlar kiritilib ketma-ket ulanadi — galvanik element kimyoviy energiyani elektrga aylantiradi va LED yonadi.",materials:["3 ta limon","Mis va rux simlar","LED"],steps:["Har limonga mis va rux sim kiriting","Ketma-ket ulang","LED yonishini kuzating"]},
+    {id:80503,name:"Quyosh panelidan tok",wow:false,desc:"Quyosh paneli motorga ulanib nurga tutiladi — fotogalvanik elementlar yorug'lik energiyasini elektrga aylantiradi va motor harakatga keladi. Tugamaydigan, ekologik toza energiya.",materials:["Quyosh paneli","Motor","Ulovchi simlar"],steps:["Panelni motorga ulang","Quyosh nuriga tuting","Motorning aylanishini kuzating"]},
+    {id:80504,name:"WOW: Falga tokdan qiziydi ⭐",wow:true,desc:"Batareykaning musbat va manfiy qutblari ingichka falga lenta bilan ulanadi — falga tezda qiziydi! Elektr energiya issiqlikka aylanmoqda. Dazmol, isitkich, elektr pech shu hodisaga asoslangan.",materials:["Batareyka (1.5V)","Ingichka falga lenta"],steps:["Falgani qutblarga ulang","Falganing qizishini his qiling","Tokning issiqlik ta'sirini muhokama qiling"]}
+  ]},
+  {id:806,grade:8,title:"Elektr kuchlanish va uni o'lchash",cat:"elektr",icon:"🔆",experiments:[
+    {id:80601,name:"Voltmetr bilan kuchlanish o'lchash",wow:false,desc:"Voltmetr zanjir elementiga parallel ulanadi va elementning ikki uchi orasidagi kuchlanishni o'lchaydi. Simlar teskari ulansa qiymat o'zgarmaydi, faqat ishorasi farq qiladi.",materials:["Voltmetr","Bir necha batareyka","Ulovchi simlar"],steps:["Voltmetrni elementga parallel ulang","Batareyka kuchlanishini o'lchang","Qiymatni o'qing"]},
+    {id:80602,name:"Multimetr — DC va AC rejimi",wow:false,desc:"Multimetr bilan kuchlanish, tok va qarshilik o'lchanadi. \"V\" belgisi kuchlanish rejimi: chiziqli belgi — o'zgarmas (DC), to'lqinli — o'zgaruvchan (AC). 220V uy tarmog'ini faqat AC rejimida o'lchash kerak.",materials:["Multimetr","Batareyka","Ulovchi simlar"],steps:["Rejimni V (DC/AC) ga qo'ying","Manbaga parallel ulang","Natijani o'qing"]},
+    {id:80603,name:"WOW: Batareyalarni ketma-ket va parallel ulash ⭐",wow:true,desc:"Ikki batareyka ketma-ket ulansa kuchlanish qo'shiladi (1.5+1.5=3V). Parallel ulansa kuchlanish o'zgarmaydi (1.5V) lekin sig'imi qo'shilib uzoqroq ishlaydi.",materials:["2 batareyka","Voltmetr","Ulovchi simlar"],steps:["Ketma-ket ulang — kuchlanishni o'lchang","Parallel ulang — kuchlanishni o'lchang","Sxemalarni doskaga chizib taqqoslang"]}
+  ]},
+  {id:807,grade:8,title:"Tok kuchi va uni o'lchash",cat:"elektr",icon:"🔁",experiments:[
+    {id:80701,name:"Sodda zanjirda tok kuchini o'lchash",wow:false,desc:"Kalit, lampochka, manba va ampermetrdan sodda zanjir yasaladi. Ampermetr zanjirga ketma-ket ulanib, 1 soniyada o'tadigan zaryad miqdorini — tok kuchini ko'rsatadi (I=q/t, birligi A).",materials:["Ampermetr","Lampochka","Kalit","Manba","Ulovchi simlar"],steps:["Zanjirni ketma-ket yig'ing","Ampermetrni ulang","Tok kuchini o'qing"]},
+    {id:80702,name:"WOW: Kalitsiz va kalit bilan ⭐",wow:true,desc:"Kalit ochiq — lampa yonmaydi, ampermetr 0 ko'rsatadi. Kalit yopiq — lampa yonadi, ampermetr tokni ko'rsatadi. Tok faqat yopiq zanjirda oqadi.",materials:["Ampermetr","Lampochka","Kalit","Manba"],steps:["Kalitni oching — kuzating","Kalitni yoping — kuzating","Tok kuchidagi farqni muhokama qiling"]}
+  ]},
+  {id:808,grade:8,title:"Elektr qarshilik",cat:"elektr",icon:"♨️",experiments:[
+    {id:80801,name:"Qarshilik LEDni himoya qiladi",wow:false,desc:"LED to'g'ridan-to'g'ri 220V ga ulansa kuyadi (sachrab ketishi mumkin). Qarshilik orqali ulansa — tinch va chiroyli yonadi. Qarshilik tokni tartibga soladi va asbobni ortiqcha tokdan himoya qiladi.",materials:["2 LED","Qarshilik (oq uchun 50kΩ)","220V sim"],steps:["IZOH: o'quvchilar uzoqroqda tursin","LEDni to'g'ridan-to'g'ri ulang — kuyadi","Qarshilik bilan ulang — tinch yonadi"]},
+    {id:80802,name:"Qarshilik nimalarga bog'liq",wow:false,desc:"Har xil uzunlik, yuza va materialli simlar multimetr bilan o'lchanadi. Yuza katta bo'lsa qarshilik kichik (R~1/S), sim uzun bo'lsa qarshilik katta (R~l), material ham ta'sir qiladi (R~ρ). Demak R=ρl/S.",materials:["6 xil sim (uzunlik, yuza, material)","Multimetr"],steps:["Multimetrni qarshilik rejimiga qo'ying","Har simni navbat bilan o'lchang","Natijalarni doskaga yozib taqqoslang"]},
+    {id:80803,name:"WOW: Spiral va elektr choynak ⭐",wow:true,desc:"Choynak ichidagi spiral ham qarshilik. Tok o'tganda u qiziydi va suvni qaynatadi. Har xil omli qarshiliklar bilan zanjir yasalganda lampochka yorqinligi o'zgaradi.",materials:["Elektr choynak spirali","Har xil omli qarshiliklar","Lampochkali zanjir"],steps:["Spiral qarshilik ekanini tushuntiring","Har xil qarshilik bilan zanjir yasang","Lampochka yorqinligini kuzating"]}
+  ]},
+  {id:809,grade:8,title:"Rezistor, Reostat va potensiometr",cat:"elektr",icon:"🎛️",experiments:[
+    {id:80901,name:"Rezistor va rang kodi",wow:false,desc:"Rezistor ustidagi rangli halqalar uning qarshilik qiymatini bildiradi (rang kodi). Multimetr bilan tekshirib, o'lchov asbobisiz ham qiymatni aniqlash mumkin. Rezistor qarshiligi o'zgarmaydi.",materials:["Bir necha rezistor","Multimetr"],steps:["Rezistor qarshiligini o'lchang","Rang halqalarini o'rganing","Rang kodi bilan solishtiring"]},
+    {id:80902,name:"WOW: Reostat bilan lampochkani sozlash ⭐",wow:true,desc:"Reostat zanjirdagi qarshilikni silliq o'zgartiradi. Tutqich surilganda simning uzunligi o'zgaradi — lampochka xira bo'ladi yoki yorqinlashadi.",materials:["Reostat","Lampochkali zanjir","Manba"],steps:["Reostatni zanjirga ulang","Tutqichni sekin suring","Yorqinlik o'zgarishini kuzating"]},
+    {id:80903,name:"Potensiometr — kuchlanishni rostlash",wow:false,desc:"Potensiometr reostatga o'xshash, lekin 3 kanalga ega. Bittadagi kuchlanishni ikkinchisiga o'tkazib, kuchlanishni o'zgartiradi. Radio ovozi, gaz plitasi regulyatori, monitor yorqinligi — hammasi potensiometr.",materials:["Potensiometr (diskli jihoz)"],steps:["Potensiometrni motorga ulang","Tutqichni buring","Tezlik o'zgarishini kuzating"]}
+  ]},
+  {id:810,grade:8,title:"Zanjirning bir qismi uchun Om qonuni",cat:"elektr",icon:"📊",experiments:[
+    {id:81001,name:"WOW: Om qonunini tajribada tasdiqlash ⭐",wow:true,desc:"Ampermetr ketma-ket, voltmetr parallel ulangan zanjir. Batareyka soni oshirilganda U va I birga ortadi (I~U). Qarshilik oshirilganda I kamayadi (I~1/R). Demak I=U/R — Om qonuni.",materials:["Rezistorlar (5,10,15Ω)","Batareykalar","Voltmetr","Ampermetr"],steps:["Kuchlanishni oshirib I-U ni jadvalga yozing","Qarshilikni oshirib I-R ni jadvalga yozing","I=U/R bog'lanishini xulosa qiling"]},
+    {id:81002,name:"Kuchlanish va tokning to'g'ri proporsionalligi",wow:false,desc:"Kuchlanish ikki barobar oshganda tok kuchi ham ikki barobar oshadi — ular orasida to'g'ri proporsionallik bor. Qarshilik o'zgarmaganda I~U.",materials:["Rezistor","Batareykalar","Voltmetr","Ampermetr"],steps:["1 batareyka ulang, qiymatlarni yozing","Batareyka soni oshiring","Proporsionallikni kuzating"]}
+  ]},
+  {id:811,grade:8,title:"Qarshilikning haroratga bog'liqligi",cat:"elektr",icon:"🌡️",experiments:[
+    {id:81101,name:"Suyuq azotda qarshilik kamayadi",wow:false,desc:"Rezistor qarshiligi multimetrda o'lchanadi, so'ng suyuq azotga (-196°C) solinadi va qaytadan o'lchanadi. Harorat kamayganda qarshilik ham kamayadi: R=R₀(1+αt).",materials:["Suyuq azot va idish","Rezistorlar","Multimetr"],steps:["Rezistor qarshiligini o'lchang","Azotga soling va olib oling","Qaytadan o'lchang — kamayganini ko'ring"]},
+    {id:81102,name:"WOW: Lampochka inert azotda yonadi ⭐",wow:true,desc:"Sindirilgan lampochka 220V ga ulansa — kislorod bilan reaksiyaga kirib kuyib ketadi. Ammo boshqa sindirilgan lampochka azotga solib ulansa — doimgidek yonib turaveradi! Inert muhitda yonish bo'lmaydi.",materials:["Suyuq azot","2 lampochka","Sindirish uchun jism","220V manba"],steps:["XAVFSIZLIK qoidalariga amal qiling","Lampochkani sindirib oddiy havoda ulang — kuyadi","Boshqasini azotda ulang — yonib turadi"]}
+  ]},
+  {id:812,grade:8,title:"Iste'molchilarni ketma-ket va parallel ulash",cat:"elektr",icon:"🔗",experiments:[
+    {id:81201,name:"Ketma-ket ulanish",wow:false,desc:"Lampochkalar ketma-ket ulanadi — bir yo'ldan tok o'tadi. Lampalar xira yonadi, chunki kuchlanish bo'linadi. Bittasi o'chsa hammasi o'chadi (yangi yil zanjirlari). Rₐ=R₁+R₂, I bir xil.",materials:["Lampochkalar","Kalit","Ulovchi simlar","Batareyka"],steps:["Lampochkalarni ketma-ket ulang","Xira yonishini kuzating","Bittasini uzib hammasi o'chishini ko'rsating"]},
+    {id:81202,name:"WOW: O'quvchilar zanjir bo'lib ⭐",wow:true,desc:"O'quvchilar o'zlarini lampochka deb tasavvur qilib qo'l ushlashadi. Ketma-ket: bittasi qo'lini bo'shatsa zanjir uziladi. Parallel: har biri alohida yo'l, biri uzilsa qolganlar ishlaydi.",materials:["O'quvchilar","Lampochkalar"],steps:["Ketma-ket zanjir hosil qiling","Parallel zanjir hosil qiling","Lampochka bilan takrorlang"]},
+    {id:81203,name:"Parallel ulanish",wow:false,desc:"Lampochkalar parallel ulanganda har biri alohida yo'l bilan ulanadi, kuchlanish har birida to'liq bo'ladi va lampalar to'liq yonadi. Uy chiroqlari, maishiy texnika shunday. 1/Rₐ=1/R₁+1/R₂.",materials:["Lampochkalar","Ulovchi simlar","Batareyka"],steps:["Lampochkalarni parallel ulang","To'liq yonishini kuzating","Birini uzib qolganlar yonishini ko'rsating"]}
+  ]},
+  {id:814,grade:8,title:"Elektr sig'imi. Kondensatorlar",cat:"elektr",icon:"🪫",experiments:[
+    {id:81401,name:"Kondensator chiroqni sekin o'chiradi",wow:false,desc:"LEDga parallel kondensator ulanadi. Knopka qo'yib yuborilganda chiroq darhol o'chmaydi — sekin-asta so'nadi. Kondensator tokni o'ziga yig'ib olib, manba o'chganda qaytarib beradi.",materials:["Batareya","Knopka","LED","Kondensator"],steps:["Kondensatorni LEDga parallel ulang","Knopkani bosing, so'ng qo'yib yuboring","Chiroqning sekin so'nishini kuzating"]},
+    {id:81402,name:"Yassi kondensator sig'imi",wow:false,desc:"Folga plastinkalardan kondensator yasalib, multimetr (F rejimi) bilan o'lchanadi. Yuza katta bo'lsa sig'im katta (C~S), masofa katta bo'lsa kichik (C~1/d), oraga dielektrik qo'yilsa ortadi (C~ε). C=εε₀S/d.",materials:["3 juft folga","Multimetr (F rejimi)","Qog'oz, paket"],steps:["Plastinkalarni parallel qo'yib sig'imni o'lchang","Yuza va masofani o'zgartiring","Oraga dielektrik qo'yib o'lchang"]},
+    {id:81403,name:"WOW: Zaryadlanish va razryadlanish ⭐",wow:true,desc:"1-kalit ulanganda batareya 1-LEDni yoqadi va kondensatorni zaryadlaydi. Batareya uziladi. 2-kalit ulanganda kondensator yig'gan energiyani 2-LEDga beradi — yorqin yonib sekin o'chadi. Telefon akkumulyatoriga o'xshash.",materials:["Batareya","2 kalit","2 LED","Kondensator"],steps:["1-kalitni ulang — 1-LED yonadi","Batareyani uzing","2-kalitni ulang — 2-LED yonadi"]}
+  ]},
+  {id:815,grade:8,title:"Kondensator va rezistor",cat:"elektr",icon:"⚙️",experiments:[
+    {id:81501,name:"WOW: Teskari ulangan kondensator portlashi ⭐",wow:true,desc:"Kondensator qutblari teskari ulanib 30V/5A manbaga ulanadi — bir necha soniyada portlaydi! Ichidagi parafin va qog'oz lentalar ochiladi. Kondensatorni doim to'g'ri qutbda ulash kerak.",materials:["Kondensator","Block pitaniya","Kesilgan baklashka"],steps:["XAVFSIZLIK: manba o'chiqligini tekshiring","Qutblarni teskari ulab baklashkaga soling","Uzoqdan turib kuzating — portlaydi"]},
+    {id:81502,name:"Kerakli qarshilikni yig'ish",wow:false,desc:"Kerakli rezistor bo'lmasa, mavjudlardan ketma-ket va parallel ulab kerakli qiymat hosil qilinadi. Masalan 50Ω uchun ikki 100Ω parallel ulanadi.",materials:["Turli omli rezistorlar","Multimetr"],steps:["Berilgan qiymatni hosil qiling","Parallel va ketma-ket ulashdan foydalaning","Multimetr bilan tekshiring"]}
+  ]},
+  {id:816,grade:8,title:"Kondensatorlarni ketma-ket va parallel ulash",cat:"elektr",icon:"➕",experiments:[
+    {id:81601,name:"WOW: Sig'imni o'lchab tekshirish ⭐",wow:true,desc:"Kondensatorlar rezistorlardan farqli — zaryadni o'zida to'playdi. Ketma-ket: 1/Cₐ=1/C₁+1/C₂. Parallel: Cₐ=C₁+C₂ (ko'proq zaryad). Turli zanjirlar yasalib multimetrda tekshiriladi.",materials:["Turli sig'imli kondensatorlar","Ulovchi simlar","Multimetr"],steps:["Ketma-ket va parallel zanjir yasang","Umumiy sig'imni hisoblang","Multimetrda tekshiring"]}
+  ]},
+  {id:817,grade:8,title:"Elektr tokining ishi va quvvati",cat:"elektr",icon:"💡",experiments:[
+    {id:81701,name:"Har xil quvvatli lampochkalar",wow:false,desc:"3 xil quvvatli lampochka navbat bilan ulanadi. Past quvvatlisi xira, 500 vattlisi butun xonani yoritadi. Quvvat — tokning 1 soniyadagi ishi. P=UI, birligi Vatt.",materials:["3 xil quvvatli lampochka"],steps:["Lampochkalarni navbat bilan ulang","Yorqinlik farqini kuzating","Quvvat tushunchasini muhokama qiling"]},
+    {id:81702,name:"Detal o'lchami va chidamliligi",wow:false,desc:"Bir xil qarshilikdagi, lekin har xil o'lchamdagi rezistorlar. Kichigi katta tokda yonib ketadi, kattasi yuzasi orqali issiqlikni tezroq chiqarib chidaydi. O'lcham — detalning chidamlilik belgisi.",materials:["3 xil o'lchamli rezistor","Manba"],steps:["Bir xil qarshilikli rezistorlarni solishtiring","Tok ta'sirida qizishini kuzating","O'lcham va chidamlilik bog'lanishini muhokama qiling"]},
+    {id:81703,name:"WOW: Ampermetrni shuntlash ⭐",wow:true,desc:"5A ga mo'ljallangan ampermetr 50A tokni o'lchashi kerak. Ampermetrga parallel juda kichik qarshilik (shunt) ulanadi — asosiy tok shunt orqali o'tadi, ampermetrga kichik qismi kiradi. Katta selni kanal bilan burishga o'xshaydi.",materials:["Ampermetr","Kichik qarshilik (shunt)","Manba","Ulovchi simlar"],steps:["Shuntni ampermetrga parallel ulang","Katta tokni o'lchang","Shuntning vazifasini tushuntiring"]}
+  ]},
+  {id:818,grade:8,title:"Joul-Lens qonuni",cat:"elektr",icon:"🔥",experiments:[
+    {id:81801,name:"WOW: Tok paxtani yondiradi ⭐",wow:true,desc:"Spirt sepilgan paxta o'zicha yonmaydi. Ingichka falga batareyka uchlariga tekkizilib, o'rtasi paxtaga yaqinlashtiriladi — paxta alangalanadi! Falga ingichka bo'lgani uchun qarshiligi katta, tez qiziydi (Q=I²Rt).",materials:["Falga","2 batareyka","Paxta","Spirt"],steps:["Paxtaga spirt seping","Falgani batareykaga tekkizing","O'rtasini paxtaga yaqinlashtiring — yonadi"]},
+    {id:81802,name:"Mis va nixrom — qaysi qiziydi",wow:false,desc:"Mis va nixrom simdan tok o'tkaziladi. Mis sim gugurtni yoqmaydi, nixrom esa yondiradi — nixromning qarshiligi katta, ko'proq qiziydi. Tok oshganda issiqlik keskin ortadi (Q~I²). Dazmol, fen, plita nixromdan.",materials:["Nixrom va mis sim","Block pitaniya","Gugurt"],steps:["Tokni 1A ga qo'ying — gugurtni sinang","Tok kuchini oshiring","Nixrom gugurtni yoqishini kuzating"]},
+    {id:81803,name:"Sim qalinligi va qizish",wow:false,desc:"Qalin va yupqa mis simdan bir xil tok o'tkaziladi. Yupqa sim qarshiligi katta — tez qizib uziladi, qalin sim o'zgarmaydi. Shuning uchun elektr tarmoqlarida qalin sim ishlatiladi (Q~R).",materials:["2 xil qalinlikdagi mis sim","Block pitaniya"],steps:["Ikkala simni ulang","Tok bering","Yupqa simning uzilishini kuzating"]}
+  ]},
+  {id:819,grade:8,title:"Joul-Lens qonunining tatbiqi",cat:"elektr",icon:"🍳",experiments:[
+    {id:81901,name:"Spiral qizib cho'ziladi",wow:false,desc:"Spiral 220V ga ulanadi — qizib qizarib, issiqlik hisobiga cho'ziladi. Otvyorka tekkizilgan joyning pastki qismi sovib, rangi o'chadi: tok qarshiligi kichik otvyorka orqali ketadi, tok o'tmagan joyda issiqlik ajralmaydi.",materials:["220V spiral","Otvyorka"],steps:["Spiralni 220V ga ulang — cho'zilishini kuzating","O'rtasiga otvyorka tekkizing","IZOH: tegishmasin, sovishini kuting"]},
+    {id:81902,name:"Har xil metallar har xil cho'ziladi",wow:false,desc:"Mis, alyuminiy, temir simlar bir tok manbaiga ulanadi — har biri har xil cho'ziladi. Yozda issiq simlar osilib qoladi, muhandislar buni hisobga oladi: l=l₀(1+αΔt).",materials:["Mis, alyuminiy, temir sim","Block pitaniya"],steps:["Simlarni ketma-ket ulang","Tok bering","Har xil cho'zilishni solishtiring"]},
+    {id:81903,name:"WOW: Lezvalar suvni qaynatadi ⭐",wow:true,desc:"Ikki lezva bir-biriga tegmaydigan qilib suvga solinib 32V/5A ga ulanadi. Lezvalar qarshilik ko'rsatib issiqlik ajratadi — suv qaynay boshlaydi! Elektr choynak ichidagi TEN shu prinsipda ishlaydi.",materials:["2 lezva","Suv","Stakan","Block pitaniya"],steps:["Lezvalarni tegmas qilib suvga soling","32V/5A ga ulang","Suvning qaynashini kuzating"]}
+  ]},
+  {id:820,grade:8,title:"Xonadon elektr zanjiri. Elektr xavfsizligi",cat:"elektr",icon:"⚠️",experiments:[
+    {id:82001,name:"Qisqa tutashuv simni eritadi",wow:false,desc:"LED va ingichka mis sim ketma-ket ulanadi. LED oyoqchalariga boshqa sim tekkizilib qisqa tutashuv hosil qilinadi — chiroq o'chadi, ingichka sim qizarib uziladi. Tok \"dangasa\" — qarshiligi yo'q simdan o'tadi.",materials:["Block pitaniya (3V/2A)","LED","Ingichka mis sim"],steps:["LED va simni ketma-ket ulang","Oyoqchalarga sim tekkizing","Simning erib uzilishini kuzating"]},
+    {id:82002,name:"WOW: Avtomat uyni asraydi ⭐",wow:true,desc:"220V tarmoqqa avtomat orqali lampochka ulanadi. Qisqa tutashuv hosil qilinganda \"chirs\" etib avtomat o'zi o'chadi — lampochka va simlar butun qoladi. Avtomat o'zini qurbon qilib uyni yong'indan asraydi.",materials:["Avtomat (saqlagich)","Lampochka","220V tarmoq"],steps:["Avtomat orqali lampochkani ulang","Qisqa tutashuv hosil qiling","Avtomatning o'chishini kuzating"]},
+    {id:82003,name:"Elektr xavfsizlik qoidalari",wow:false,desc:"42V dan yuqori kuchlanish o'ta xavfli, rozetkada 220V bor. 5 oltin qoida: uzilgan simga yaqinlashmang, devorga mix qoqishda ehtiyot bo'ling, rozetkaga metall tiqmang, simni qo'l bilan tuzatmang, tok urgan odamni quruq yog'och bilan ajrating.",materials:["Block pitaniya","LED zanjir","Lampochkali zanjir"],steps:["Qisqa tutashuv xavfini ko'rsating","Xavfsizlik qoidalarini muhokama qiling","Birinchi yordamni tushuntiring"]}
+  ]},
+  {id:821,grade:8,title:"Metallar va suyuqliklarda elektr toki",cat:"elektr",icon:"💧",experiments:[
+    {id:82101,name:"Qizigan metallda qarshilik ortadi",wow:false,desc:"Lampochka va nixrom simdan zanjir. Sim gorelka bilan qizdirilganda lampochka xiralashadi — harorat ortishi bilan metall qarshiligi ortadi. Ionlar qattiqroq tebranib elektronlarga xalaqit beradi. Telefon qizib sekinlashishining sababi shu.",materials:["Lampochkali nixrom zanjir","Block pitaniya","Gaz balonchik"],steps:["Zanjirni yig'ing — lampa yonadi","Simni gorelka bilan qizdiring","Lampaning xiralashishini kuzating"]},
+    {id:82102,name:"WOW: Limon suyuqligi tok o'tkazadi ⭐",wow:true,desc:"Simlar toza suvga solinadi — lampa deyarli yonmaydi. Limon yoki tuzli suvga solinadi — yorqin yonadi! Suyuqliklarda tokni ionlar tashiydi (elektrolit). Yog' va spirtda ion yo'q — dielektrik.",materials:["Lampochkali zanjir","Limon, suv, tuz, yog', spirt"],steps:["Simlarni toza suvga soling","Tuzli suv/limonga soling","Yog'ga soling — taqqoslang"]}
+  ]},
+  {id:822,grade:8,title:"Elektroliz hodisasi",cat:"elektr",icon:"🧪",experiments:[
+    {id:82201,name:"Tuzli suvda elektroliz",wow:false,desc:"Tuzli suvga (NaCl ionlarga ajraladi) grafit tayoqchalar ulanadi. Musbat ionlar manfiy tayoqchaga, manfiy ionlar musbat tayoqchaga boradi va moddaga aylanadi. Tok yoki vaqt oshsa modda ko'payadi: m=kIΔt (Faradey qonuni). Navoiy va Olmaliqda metall shunday tozalanadi.",materials:["Block pitaniya","Grafit","Idish","Tuzli suv"],steps:["Tuzli suvga grafitlarni ulang","Tayoqchalarda modda yig'ilishini kuzating","Tok kuchini oshirib ta'sirini ko'ring"]},
+    {id:82202,name:"WOW: Fenolftalein rang o'zgaradi ⭐",wow:true,desc:"Sodali suvga fenolftalein qo'shilib grafitlar ulanadi. Bitta tayoqcha atrofida suv pushti rangga kiradi — o'sha tomonda ishqor ortadi. Qutblar almashtirilsa rang boshqa tayoqchaga o'tadi. Elektroliz tok yo'nalishiga bog'liq.",materials:["Block pitaniya","Grafit","Sodali suv","Fenolftalein"],steps:["Sodali suvga fenolftalein tomizing","Grafitlarni ulang","Pushti rang paydo bo'lishini kuzating"]}
+  ]},
+  {id:823,grade:8,title:"O'tkazgichlarda zaryadning taqsimlanishi",cat:"elektr",icon:"📍",experiments:[
+    {id:82301,name:"Zaryad o'tkir uchda to'planadi",wow:false,desc:"O'tkir mix va yumaloq folga shar bir xil zaryadlanadi. Mixning o'tkir uchidagi folgalar kattaroq ochiladi — bir xil zaryadlar o'tkir uchlarga to'planadi. Binolar tepasidagi momaqaldiroq qaytargich shuning uchun o'tkir.",materials:["O'tkir mix","Folgadan shar","Havo shari"],steps:["Sharni zaryadlang","Mix va shar ustiga tekkizing","Folgalar ochilishini solishtiring"]},
+    {id:82302,name:"Zaryadning sirt zichligi",wow:false,desc:"Bir tomoni o'tkir, ikkinchi tomoni keng elektroskop. O'tkir tomonda folgalar keng ochiladi, keng tomonda deyarli yo'q. Yuza kichik bo'lsa zaryad zich: σ=q/S. Yuqori kuchlanishli asboblar silliq va yumaloq yasaladi.",materials:["O'zgaruvchan yuzali elektroskop","Havo shari"],steps:["Elektroskopni zaryadlang","Har ikki uchdagi folgalarni kuzating","Sirt zichligini muhokama qiling"]},
+    {id:82303,name:"WOW: Faraday qafasi signalni to'sadi ⭐",wow:true,desc:"Faradey qafasiga ulangan elektroskop, ichidagi zaryad tashqi sirtga suriladi. Qafas ichiga radio qo'yilsa musiqa to'xtaydi, telefon qo'yilsa \"xizmat doirasidan tashqarida\". Samolyot, mashina, lift ham Faradey qafasi — chaqmoqdan himoya qiladi.",materials:["Faradey qafasi","Elektroskop","Radio","2 telefon"],steps:["Radioni qafasga yoping — musiqa to'xtaydi","Telefonga qo'ng'iroq qiling","Signal yo'qligini kuzating"]}
+  ]},
+  {id:824,grade:8,title:"Turli muhitlarda elektr toki",cat:"elektr",icon:"💥",experiments:[
+    {id:82401,name:"Vakuumda tok o'tmaydi",wow:false,desc:"Vakuum-maker ichiga elektroshoker qo'yiladi. Havo bor holatda shoker uchqun beradi (havo orqali sakraydi). Havo so'rib olingach uchqun yo'qoladi — vakuumda tok tashiydigan zarrachalar yo'q.",materials:["Vakuum-maker","Elektroshoker"],steps:["Havo bor holatda shokerni yoqing — uchqun","Havoni so'rib oling","Yana yoqing — uchqun yo'q"]},
+    {id:82402,name:"WOW: Tesla coil simsiz yoritadi ⭐",wow:true,desc:"Tesla g'altagidan baland kuchlanish havoni yorib uchqun beradi — gaz razryadi. Lampochka yaqinlashtirilsa simsiz yonadi! Tabiatdagi chaqmoq ham shu prinsipda: bulutlarda kuchlanish ortib havo \"taslim bo'ladi\".",materials:["Tesla coil","Lampochka"],steps:["Tesla coilni yoqing","Uchqunlarni kuzating","Lampochkani yaqinlashtiring — yonadi"]},
+    {id:82403,name:"Qalam grafiti yoy beradi",wow:false,desc:"Ikki uchi o'tkir ochilgan qalam yuqori kuchlanishli manbaga ulanadi. Grafitdan kuchli elektron oqimi o'tib zarralar bir-biriga urilib qattiq qiziydi — tutun chiqib, qizarib, yoy shaklga keladi. Tok ortsa har o'tkazgich erib ketadi.",materials:["Block pitaniya","Ikki uchi ochilgan qalam"],steps:["Qalamni baland kuchlanishga ulang","Grafitning qizishini kuzating","Yoy hosil bo'lishini ko'ring"]}
+  ]},
+  {id:826,grade:8,title:"Bernulli qonuni",cat:"mexanika",icon:"✈️",experiments:[
+    {id:82601,name:"Koptok varonkaga yopishadi",wow:false,desc:"Kompressordan kuchli havo berilib varonka teskari aylantiriladi — koptok tushib ketmay yopishib qoladi! Shar va devor orasidan havo tezligi keskin oshadi, tezlik katta joyda bosim kichik (P+ρv²/2=const).",materials:["Varonka","Tennis to'pi","Kompressor"],steps:["Koptokni varonkaga soling","Kompressordan havo bering","Teskari aylantiring — yopishadi"]},
+    {id:82602,name:"Venturi trubkasi suvni ko'taradi",wow:false,desc:"Tor quvurdan havo o'tkazilganda rangli suv yuqoriga ko'tariladi — tor joyda tezlik katta, bosim kichik, suv past bosim tomonga tortiladi. Pulverizator (bo'yoq, atir) shu prinsipda ishlaydi.",materials:["Venturi trubkasi","Rangli suv","Stakan","Kompressor"],steps:["Trubkani suvli stakanga ulang","Havo puflang","Suvning ko'tarilishini kuzating"]},
+    {id:82603,name:"WOW: Sharlar havo oqimida ko'tariladi ⭐",wow:true,desc:"Idishdagi mayda sharchalar ustidan silindr trubka orqali havo yuboriladi — sharchalar yuqoriga ko'tariladi. Shlangdan chiqayotgan havo po'kaklarni ko'taradi. Tez oqayotgan gaz past bosim hosil qilib jismlarni tortadi.",materials:["Rangli sharlar","Idish","Silindr trubka","Shlanka, po'kak","Kompressor"],steps:["Sharlarni idishga soling","Trubkadan havo yuboring","Sharlarning ko'tarilishini kuzating"]}
+  ]},
+  {id:827,grade:8,title:"Magnit maydon",cat:"magnit",icon:"🧲",experiments:[
+    {id:82701,name:"Ferro-, para-, diamagnit moddalar",wow:false,desc:"Turli metallar magnitga yaqinlashtiriladi. Ferromagnit (temir, nikel, kobalt) kuchli tortiladi, paramagnit (alyuminiy, platina) kuchsiz, diamagnit esa itariladi. Temir kukunli idishda maydon chiziqlari ko'rinadi.",materials:["Magnit","Temir kukuni","Turli metallar"],steps:["Metallarni magnitga yaqinlashtiring","Tortilish darajasini solishtiring","Temir kukunda maydonni ko'ring"]},
+    {id:82702,name:"O'zingiz yasagan kompas",wow:false,desc:"Ignani qog'oz parchasiga qo'yib suvga tushiriladi — igna shimol-janub bo'ylab to'xtaydi. Bu kompas prinsipi. Yer — ulkan magnit, o'zagi temir-nikeldan, bizni kosmik nurlanishdan himoya qiladi.",materials:["Igna","Qog'oz parchasi","Suvli idish"],steps:["Ignani qog'ozga qo'ying","Suvga tushiring","Shimol-janob yo'nalishini kuzating"]},
+    {id:82703,name:"WOW: Tok kompasni og'diradi ⭐",wow:true,desc:"Suvdagi kompas ignasi yoniga tok o'tayotgan sim yaqinlashtiriladi — igna harakatlana boshlaydi! Tok bor joyda magnit maydon hosil bo'ladi. Magnitni qizdirsak (ignani olovda) magnitlik xossasi yo'qoladi.",materials:["Suvdagi kompas (igna)","Tokli sim","Magnit, olov"],steps:["Kompas yoniga tokli simni yaqinlashtiring","Ignaning harakatini kuzating","Magnitni qizdirib xossa yo'qolishini ko'ring"]}
+  ]},
+  {id:829,grade:8,title:"Magnit maydonning tokli o'tkazgichga ta'siri. Lens qonuni",cat:"magnit",icon:"🌀",experiments:[
+    {id:82901,name:"WOW: Magnit mis quvurda sekinlashadi ⭐",wow:true,desc:"Magnit qiya daftar va qiya mis plastinkadan sirpanib tushiriladi. Daftardan tez tushadi, mis ustida \"tormozlanib\" sekin tushadi! Lenz qoidasi: mis ichida hosil bo'lgan tok magnit harakatiga qarshilik ko'rsatadi.",materials:["Mis plastinka","Magnit","Qiya daftar"],steps:["Magnitni daftardan tushiring — tez","Mis plastinkadan tushiring — sekin","Lenz qoidasini tushuntiring"]},
+    {id:82902,name:"Elektromagnit induksiya",wow:false,desc:"Magnit katushka ichiga tez-tez kiritib-chiqariladi — o'lchov asbobi tok borligini ko'rsatadi! Magnit oqimi o'zgarganda o'tkazgichda elektr toki hosil bo'ladi. Bu generatorlarning asosi.",materials:["Katushka","Magnit","O'lchov asbobi"],steps:["Magnitni katushka ichiga kiriting","Tez-tez harakatlantiring","Asbob strelkasining qimirlashini kuzating"]},
+    {id:82903,name:"Tokli ramka aylanadi (DC motor)",wow:false,desc:"Magnitlar orasidagi mis ramkaga tok beriladi — Amper kuchi ta'sirida ramka tez aylanadi (elektr → mexanik energiya). Tok yo'nalishi almashtirilsa ramka teskari aylanadi. Fan, kir mashinasi, elektromobil shunday ishlaydi.",materials:["Magnitlar","Mis ramka","Kontaktlar","Manba"],steps:["Ramkaga tok bering","Aylanishini kuzating","Tok yo'nalishini o'zgartiring"]}
+  ]},
+  {id:830,grade:8,title:"Magnit maydonda tokli ramkaning aylanishi",cat:"magnit",icon:"🔄",experiments:[
+    {id:83001,name:"Tok atrofidagi maydon (parma qoidasi)",wow:false,desc:"Tok o'tayotgan sim atrofidagi qog'ozga temir kukun sepiladi — kukunlar sim atrofida konsentrik aylanalar bo'lib teriladi. Kompas bilan yo'nalish aniqlanadi. O'ng qo'l qoidasi: bosh barmoq tok, qolganlari maydon yo'nalishini ko'rsatadi.",materials:["Mis simli stend","Temir kukun","Block pitaniya","Kompas"],steps:["Sim atrofidagi qog'ozga kukun seping","Tok bering","Aylana chiziqlarni kuzating"]},
+    {id:83002,name:"WOW: Sim magnit orasidan otiladi (Amper kuchi) ⭐",wow:true,desc:"U-simon magnit qutblari orasiga ipga osilgan mis sim qo'yilib tok beriladi — sim keskin tashqariga otiladi yoki ichkariga tortiladi! Bu Amper kuchi. Tok yo'nalishi o'zgarsa kuch yo'nalishi ham o'zgaradi (chap qo'l qoidasi).",materials:["U-simon magnit","Mis sim","Block pitaniya"],steps:["Simni magnit orasiga osing","Tok bering — sim otiladi","Tok yo'nalishini almashtiring"]},
+    {id:83003,name:"Batareyka + neodim magnit motori",wow:false,desc:"Sim ramka batareyka qutbi va neodim magnitga tegadigan qilib qo'yiladi — sim ramka tezda aylanadi! Tok va magnit kuchlari birgalikda harakatni keltirib chiqaradi (gomopolyar motor).",materials:["Batareyka","Neodim magnit","Mis sim"],steps:["Sim ramkani yasang","Batareyka va magnitga tekkizing","Aylanishini kuzating"]}
+  ]},
+  {id:831,grade:8,title:"Tokli o'tkazgichlarning o'zaro ta'siri",cat:"magnit",icon:"🧭",experiments:[
+    {id:83101,name:"Parallel simlar tortishadi yoki itariladi",wow:false,desc:"Ikki elastik mis sim yonma-yon qo'yilib tok o'tkaziladi. Bir xil yo'nalishdagi toklar bir-birini tortadi, qarama-qarshi yo'nalishdagilar itaradi. Qisqa tutashuvda bu kuch kabellarni sindirib yuborishi mumkin.",materials:["2 mis sim","Block pitaniya","Ulovchi simlar"],steps:["Simlardan bir yo'nalishda tok o'tkazing — tortiladi","Yo'nalishni teskari qiling — itariladi","Sababini muhokama qiling"]},
+    {id:83102,name:"Tokli aylana magnitga moslashadi",wow:false,desc:"Aylana shaklidagi tokli kontur \"kichkina magnit\"ga aylanadi. Tashqi magnit yaqinlashtirilganda aylana barqaror holatga (energiyasi eng past) o'tib aylanadi — xuddi kompas ignasi Yer maydoniga moslashgani kabi.",materials:["Mis simli aylana","Block pitaniya","Taqasimon magnit"],steps:["Aylanaga tok bering","Tashqi magnitni yaqinlashtiring","Aylanishini kuzating"]},
+    {id:83103,name:"WOW: Magnit alyuminiy idishni aylantiradi (Fuko toki) ⭐",wow:true,desc:"Igna ustidagi alyuminiy idish atrofida kuchli magnit aylantiriladi — alyuminiy ferromagnit emas, lekin idish magnit ortidan aylanadi! Fuko (uyurma) toklari Lenz qoidasiga ko'ra magnit harakatiga qarshilik qiladi. Induksion pech va Maglev poyezd shu prinsipda.",materials:["Igna","Alyuminiy idish (kesik)","Kuchli magnit"],steps:["Idishni ignaga muvozanatlang","Magnitni atrofida aylantiring","Idishning ergashib aylanishini kuzating"]}
+  ]},
+  {id:832,grade:8,title:"Elektromagnit rele",cat:"magnit",icon:"🔘",experiments:[
+    {id:83201,name:"Elektromagnit temirni tortadi",wow:false,desc:"G'altakka tok berilganda temir gayka darrov yopishadi, tok uzilsa tushadi — bu elektromagnit. Chiqindi zavodidagi ulkan kranlar, domofon eshigi shu prinsipda ishlaydi.",materials:["Elektromagnit g'altak","Block pitaniya","Temir gayka"],steps:["G'altakka tok bering","Gaykani yaqinlashtiring — yopishadi","Tokni uzing — tushadi"]},
+    {id:83202,name:"WOW: Sensor relesi lampani yoqadi ⭐",wow:true,desc:"5V sensor, rele va 220V lampochka ulanadi. Sensor obektni sezganda relega kichik signal yuboradi, rele \"chiq!\" etib katta zanjirni ulaydi va lampa yonadi. Kichik signal bilan yuzlab vatt boshqariladi. Turniket, mashina starteri, aqlli uy shunday.",materials:["Rele","Sensor","5V block pitaniya","220V lampochka"],steps:["Sensor-rele-lampa zanjirini ulang","Qo'lingizni harakatlantiring","\"Chiq\" ovozi va lampa yonishini kuzating"]}
+  ]},
+  {id:833,grade:8,title:"Dvigatellar va generatorlar",cat:"magnit",icon:"⚡",experiments:[
+    {id:83301,name:"DC motorning ichki tuzilishi",wow:false,desc:"DC motor qismlarga ajratiladi: Stator (doimiy magnitlar, maydon yaratadi), Rotor (ko'p o'ralgan mis sim), Kommutator va cho'tkalar (har yarim aylanishda tok yo'nalishini o'zgartirib rotorni to'xtatmasdan aylantiradi).",materials:["DC motor"],steps:["Motorni qismlarga ajrating","Stator va rotorni ko'rsating","Kommutator vazifasini tushuntiring"]},
+    {id:83302,name:"Balgarka va aktuator — moment va tezlik",wow:false,desc:"Balgarka ichidagi katta motor. P=M·ω: quvvat cheklangan, tezlik (ω) yoki burash kuchi (M) tanlanadi. Reduktor tezlikni kamaytirib momentni oshiradi. Aktuator aylanma harakatni vint orqali chiziqli harakatga aylantirib tonnalab yuk ko'taradi.",materials:["Balgarka","Aktuator","Block pitaniya"],steps:["Balgarka aylanishini ko'rsating","P=M·ω munosabatini tushuntiring","Aktuatorning chiziqli harakatini ko'ring"]},
+    {id:83303,name:"WOW: Motor generatorga aylanadi ⭐",wow:true,desc:"Motor tokka emas, LEDga ulanadi — aylanmaydi. Lekin uning vali qo'l bilan tez aylantirilsa LED yonadi! Motor generatorga aylandi: mexanik harakat → elektr. GES, shamol stansiyasi, mashina alternatori shu prinsipda tok beradi.",materials:["Motor/generator","LED"],steps:["Motorni LEDga ulang","Valini qo'l bilan tez aylantiring","LED yonishini kuzating"]}
+  ]},
+{id:901,grade:9,title:"Molekulaning massasi va o'lchami",cat:"molekulyar",icon:"⚛️",experiments:[
+    {id:90101,name:"Diffuziya — atir hidi tarqalishi",wow:false,desc:"Xonaga ozgina atir purkaladi — molekulalarning tartibsiz harakati tufayli hid tarqaladi (diffuziya). Birinchi yaqindagilar, keyin uzoqdagilar sezadi. Harorat qancha yuqori bo'lsa, diffuziya shuncha tez.",materials:["Atir"],steps:["Xonaga atir purkang","Kim birinchi sezishini kuzating","Diffuziyani tushuntiring"]},
+    {id:90102,name:"Iliq va sovuq suvda kofe",wow:false,desc:"Iliq va sovuq suvga kofe qo'shiladi — iliq suvda rang tezroq yoyiladi, sovuqda sekin. Aralashtirilmadi, faqat molekulalar harakati sababli aralashdi. Iliq molekulalar tezroq harakat qiladi.",materials:["2 stakan (iliq va sovuq suv)","Kofe yoki rang"],steps:["Ikki stakanga kofe soling","Tarqalishini kuzating","Qaysi tez ekanini taqqoslang"]},
+    {id:90103,name:"Molekulalar bo'lib harakat qilish",wow:false,desc:"O'quvchilar molekula bo'lib maydonda harakat qiladi: sovuq molekula sekin va kam to'qnashadi, issiq molekula tez va ko'p to'qnashadi. Molekulyar harakatning jonli modeli.",materials:["7-8 o'quvchi","Ochiq maydon"],steps:["O'quvchilar sovuq molekula bo'lib sekin yurishadi","Issiq molekula bo'lib tez yurishadi","To'qnashish farqini muhokama qiling"]},
+    {id:90104,name:"WOW: Zaytun moyi tomchisi molekula o'lchamini beradi ⭐",wow:true,desc:"1 mm³ zaytun moyi suv sirtida ~0.6 m² yuzaga yoyiladi. Qatlam qalinligi bitta molekula diametriga teng deb olinadi (V=S·d). Suv molekulasi d≈3·10⁻¹⁰ m — agar uni olmadek kattalashtirsak, olma Yer kattaligida bo'lardi!",materials:["Zaytun moyi","Pipetka","Suvli idish"],steps:["Suv sirtiga moy tomizing","Yoyilgan yuzani o'lchang","V=S·d dan qalinlikni hisoblang"]}
+  ]},
+  {id:902,grade:9,title:"Modda miqdori va zichlik tushunchasi",cat:"molekulyar",icon:"⚖️",experiments:[
+    {id:90201,name:"Sham va karbonat angidrid",wow:false,desc:"Yopiq idishdagi ikki har xil uzunlikdagi sham. Uzun sham birinchi o'chadi — CO₂ qiziganda zichligi havonikidan kamayadi, tepada yig'iladi va uzun shamga yetadi.",materials:["2 sham (kalta va uzun)","Katta idish","Gugurt"],steps:["Shamlarni yonma-yon qo'ying","Idish bilan yoping","Qaysi avval o'chishini kuzating"]},
+    {id:90202,name:"Uch qatlam suyuqlik ustuni",wow:false,desc:"Yog', suv, sirop quyilib aralashmaydi (zichlik farqi). Temir cho'kadi, uzum va plastmassa turli qatlamlarda muallaq qoladi. Jismning cho'kishi zichligiga bog'liq.",materials:["Katta idish","Yog', suv, sirop","Temir, uzum, plastmassa"],steps:["Suyuqliklarni zichlik bo'yicha quying","Turli jismlarni tashlang","Qatlamlarda qolishini kuzating"]},
+    {id:90203,name:"Issiq va sovuq suv aralashmaydi",wow:false,desc:"Issiq suvga qizil, sovuq suvga ko'k rang qo'shiladi. Issiq stakan kartonga to'nkarib sovuq stakan ustiga qo'yiladi, karton olinadi — suvlar aralashmaydi (issiq suv zichligi kichik, tepada qoladi).",materials:["2 stakan","2 rang","Issiq va sovuq suv","Karton"],steps:["Stakanlarni tayyorlang","Issiqni sovuq ustiga to'nkaring","Kartonni olib aralashmasligini ko'ring"]},
+    {id:90204,name:"Menzurka bilan zichlik aniqlash",wow:false,desc:"Sham va temir massasi tarozida, hajmi menzurkada (suv ko'tarilishi farqi) o'lchanadi va ρ=m/V hisoblanadi. Modda miqdori (ν, mol birligi): 1 mol = 6,022·10²³ zarracha (Avogadro soni).",materials:["Menzurka","Elektron tarozi","Sham va temir","Suv"],steps:["Massani tarozida o'lchang","Menzurkada hajmni toping","ρ=m/V hisoblang"]},
+    {id:90205,name:"WOW: Quruq muz pufakcha tutadi ⭐",wow:true,desc:"10 l idishdagi quruq muzga sovun pufagi qo'yiladi — pufak idish tubiga tushmay muallaq turadi! CO₂ zichligi havodan katta. Sham idishga kiritilsa o'chadi, gazni \"suv olgandek\" olib sham ustiga to'ksa olov o'chadi.",materials:["Quruq muz (2 kg)","10 l baklashka","Sovun pufagi o'yinchog'i","Sham"],steps:["Idishga quruq muz soling","Sovun pufagi hosil qiling","Pufak muallaq turishini kuzating"]}
+  ]},
+  {id:903,grade:9,title:"Ideal gaz. Ideal gaz modeli",cat:"molekulyar",icon:"🎈",experiments:[
+    {id:90301,name:"Sharlar — hajm va bosim",wow:false,desc:"Katta va kichik shar solishtiriladi. Kichik sharda molekulalar devorga ko'proq uriladi — bosim katta. Ideal gaz modeli: molekulalar moddiy nuqta, o'zaro ta'sirsiz, faqat elastik to'qnashuv. Mendeleyev-Klapeyron: pV=nRT.",materials:["2 shar (katta va kichik)"],steps:["Sharlarni solishtiring","Qaysida bosim ko'pligini muhokama qiling","pV=nRT ni tushuntiring"]},
+    {id:90302,name:"Askarbinka idishi otiladi",wow:false,desc:"Idishga gayka va rang solib sovuq suvga tashlanadi — cho'kadi. Issiq suvga solinsa havo qiziydi, molekulalar tezlashadi, bosim ortadi — qopqoq otilib ketadi va rangli suv chiqadi.",materials:["Askarbinka idishi","Gaykalar va rang","Issiq va sovuq suv"],steps:["Idishni sovuq suvga tashlang","Issiq suvga ko'chiring","Qopqoqning otilishini kuzating"]},
+    {id:90303,name:"WOW: Metall idishni ezish ⭐",wow:true,desc:"Ichida ozgina suv bo'lgan metall idish qizdirilib bug' bilan to'ldiriladi, qopqog'i yopiladi. Sovuq suvga botirilganda bug' yana suvga aylanadi, ichki bosim pasayadi — tashqi havo bosimi idishni QAQSHATQICH ovoz bilan ezadi!",materials:["Metall idish","Tefal/plita","Sovuq suv","Qisqich"],steps:["Idishni qizdirib bug' to'ldiring","Qopqog'ini yoping","Sovuq suvga boting — eziladi"]}
+  ]},
+  {id:904,grade:9,title:"Temperatura va uning xossalari",cat:"termodynamika",icon:"🌡️",experiments:[
+    {id:90401,name:"Qo'rg'oshin qo'ng'iroq azotda jaranglaydi",wow:false,desc:"Qo'rg'oshin qo'ng'iroqdan ovoz chiqmaydi. Suyuq azotga (-196°C) 1 daqiqaga solinsa — haqiqiy jarangli qo'ng'iroq ovozi chiqadi! Harorat moddaning xossasini o'zgartiradi.",materials:["Qo'rg'oshin qo'ng'iroq","Suyuq azot"],steps:["Qo'ng'iroqni chalib ko'ring — ovoz yo'q","Azotga 1 daqiqa soling","Qaytadan chaling — jaranglaydi"]},
+    {id:90402,name:"WOW: Azotda gul va banan ⭐",wow:true,desc:"Suyuq azotga solingan shar torayadi, gul va rezina maydalanib ketadi. Eng qizig'i: banan azotda toshdek qotadi va u bilan taxtaga mix qoqsa bo'ladi! Harorat moddaning butun xossasini o'zgartiradi.",materials:["Suyuq azot","Shar, gul, rezina","Banan, mix, taxta"],steps:["Shar va gulni azotga soling","Bananni azotga soling","Banan bilan mix qoqing"]},
+    {id:90403,name:"Temir bo'lagi qizdirganda kengayadi",wow:false,desc:"Temir bo'lagi shtangensirkul bilan o'lchanadi, qaynoq suvga solinib qaytadan o'lchanadi — uzunligi ortadi. Harorat o'lchamga ham ta'sir qiladi.",materials:["Shtangensirkul","Temir bo'lagi","Qaynoq suv"],steps:["Uzunlikni o'lchang","Qaynoq suvga soling","Qaytadan o'lchang — ortganini ko'ring"]}
+  ]},
+  {id:905,grade:9,title:"Izotermik jarayon",cat:"molekulyar",icon:"➖",experiments:[
+    {id:90501,name:"Sham banka ichida suvni ko'taradi",wow:false,desc:"Ikki sham idishga qotirilib ustiga ozgina suv quyiladi, banka bilan yopiladi. Sham o'chgach havo soviydi va siqiladi — ichki bosim kamayadi, tashqi bosim suvni ichkariga itaradi va suv ko'tariladi.",materials:["2 sham","Idish","Suv","1 l banka"],steps:["Shamlarni qotiring, ustiga suv quying","Banka bilan yoping","Suvning ko'tarilishini kuzating"]},
+    {id:90502,name:"Pnevmatik silindr — PV=const",wow:false,desc:"Silindr pistoni sekin (haroratni o'zgartirmaslik uchun) bosiladi — hajm kamayadi, barometrda bosim oshadi. Tortilsa teskari. Harorat o'zgarmaganda PV=const, bosim va hajm teskari proporsional.",materials:["Pnevmatik silindr","Barometr"],steps:["Pistonni sekin bosing — bosimni kuzating","Sekin torting","PV=const ni xulosa qiling"]},
+    {id:90503,name:"WOW: Sharli baklashka suvni otadi ⭐",wow:true,desc:"Tagi teshik baklashka og'ziga shar kiritilib ishiriladi (havoni siqadi, bosim ortadi). Teshikdan suv quyib, teshik ochilganda — siqilgan havo suvni o'zi bilan otib chiqaradi! Izotermik: harorat o'zgarmaydi.",materials:["Tagi teshik baklashka","Suv","Shar"],steps:["Shar bilan havoni siqing","Suv quying, teshikni yoping","Teshikni ochib suv otilishini ko'ring"]}
+  ]},
+  {id:906,grade:9,title:"Izobarik jarayon",cat:"molekulyar",icon:"📈",experiments:[
+    {id:90601,name:"Shar issiq suvda o'zi shishadi",wow:false,desc:"Butilka og'ziga shar kiritiladi, qaynoq suvli tefalga solinadi — shar o'z-o'zidan shishadi! Havo issiqlik olib harorat oshadi, bosim ham oshadi. Izobarik: bosim o'zgarmaydi, harorat va hajm o'zgaradi (Gay-Lyussak: V/T=const).",materials:["Shar","0.5 l butilka","Tefal"],steps:["Sharni butilka og'ziga kiriting","Qaynoq suvga soling","Sharning shishishini kuzating"]},
+    {id:90602,name:"Germetik shpris qizdirganda kengayadi",wow:false,desc:"Germetik yopilgan shpris (5 ml) qaynoq suvga solinadi — gaz hajmi ortadi. Sovutilsa kamayadi. Hajm va harorat to'g'ri proporsional (V/T=const).",materials:["Germetik shpris","Qaynoq suv"],steps:["Shpris hajmini belgilang","Qaynoq suvga soling","Hajm o'zgarishini ko'ring"]},
+    {id:90603,name:"WOW: Kartezian g'avvosi ⭐",wow:true,desc:"Suvli baklashkaga muallaq suzib turgan shprits qo'yiladi. Baklashka siqilganda ichki bosim ortadi, shprits ichidagi havo siqiladi, hajm kamayadi — shprits cho'kadi! Qo'yib yuborilsa yana ko'tariladi.",materials:["1.5 l baklashka","Suv","Shprits (temirli)"],steps:["Shpritsni suvda muallaq qiling","Qopqoqni yoping","Baklashkani siqing — cho'kadi"]}
+  ]},
+  {id:907,grade:9,title:"Izoxorik jarayon",cat:"molekulyar",icon:"📉",experiments:[
+    {id:90701,name:"WOW: Muz suvni qaynatadi ⭐",wow:true,desc:"Qaynoq suvli banka germetik yopilib, mikroto'lqinli pechda qaynatiladi. Ustiga muz qo'yilganda — suv yana qaynaydi! Muz bankadagi bosimni pasaytiradi, past bosimda suv kamroq haroratda qaynaydi (tog'da ham shunday). Izoxorik: V=const, P/T=const.",materials:["Muz bo'laklari","Banka","Mikroto'lqinli pech","Selofan paket"],steps:["Qaynoq suvni bankaga germetik yoping","Pechda qaynating","Ustiga muz qo'ying — qaynaydi"]}
+  ]},
+  {id:908,grade:9,title:"Adiabatik jarayon",cat:"molekulyar",icon:"💨",experiments:[
+    {id:90801,name:"WOW: Butilkada tuman hosil bo'lishi ⭐",wow:true,desc:"Spirtli butilkaga nasos bilan havo uriladi (bosim ortadi). Tiqin birdan otilib chiqqanda havo keskin kengayadi (adiabatik) — issiqlik almashmasdan harorati keskin kamayadi, suv bug'lari kondensatsiyalanib oq tuman paydo bo'ladi! Atmosferadagi bulutlar ham shunday hosil bo'ladi.",materials:["Butilka","Tiqin","99% spirt","Nasos"],steps:["Butilkaga spirt quying","Nasos bilan havo uring","Tiqinni otib tuman hosil bo'lishini ko'ring"]}
+  ]},
+  {id:910,grade:9,title:"Ichki energiya",cat:"termodynamika",icon:"🔆",experiments:[
+    {id:91001,name:"Askarbinka idishi va ichki energiya",wow:false,desc:"Idish sovuq suvda — molekulalar sekin, bosim past. Issiq suvga solinsa molekulalar tezlashadi, kinetik (ichki) energiya ortadi, bosim oshadi va qopqoq otiladi. Issiqlik berish → ichki energiya ortadi.",materials:["Askarbinka idishi","Gaykalar, rang","Issiq va sovuq suv"],steps:["Idishni sovuq suvga soling","Issiq suvga ko'chiring","Qopqoq otilishini kuzating"]},
+    {id:91002,name:"WOW: Shar issiqlikdan shishadi ⭐",wow:true,desc:"Butilka og'ziga shar kiydirilib qaynoq suvga solinadi — havo issiqlik oladi, molekulalar tezlashadi, ichki energiya ortadi, bosim oshadi va shar o'z-o'zidan shishadi! Sovuq suvga solinsa shar so'nadi. ΔU=(3/2)νRΔT.",materials:["Shar","Butilka","Tefal"],steps:["Sharni butilkaga kiydiring","Qaynoq suvga soling","Shar shishishini kuzating"]}
+  ]},
+  {id:911,grade:9,title:"Issiqlik miqdori",cat:"termodynamika",icon:"🔥",experiments:[
+    {id:91101,name:"Alyuminiy va yog'och issiqlik o'tkazuvchanligi",wow:false,desc:"Metall va yog'och reyka qaynoq suvga solinadi — alyuminiy tez qiziydi, yog'och sovuq qoladi. Metall — yaxshi issiqlik o'tkazgich. Shuning uchun qadimda taxta qoshiq ishlatilgan.",materials:["Tefal","Alyuminiy reyka","Yog'och reyka"],steps:["Reykalarni qaynoq suvga soling","30 soniyadan keyin ushlab ko'ring","Issiqlik farqini his qiling"]},
+    {id:91102,name:"Suyuqliklar har xil qiziydi (Q~c)",wow:false,desc:"Spirt, benzin, yog' bir xil miqdorda bir xil isitiladi va elektron termometr bilan o'lchanadi — har biri har xil haroratga qiziydi. Issiqlik miqdori solishtirma issiqlik sig'imiga bog'liq (Q~c).",materials:["Spirt, benzin, yog'","Plita","Tog'ora","Termometr"],steps:["Suyuqliklarni bir xil isiting","Haroratlarni o'lchang","Doskaga yozib taqqoslang"]},
+    {id:91103,name:"WOW: Massa va issiqlik miqdori (Q~m) ⭐",wow:true,desc:"Bir idishga oz, ikkinchisiga ko'p yog' quyilib bir xil isitiladi. Termometr bilan o'lchanganda kam yog' tezroq qiziydi — issiqlik miqdori massaga bog'liq. Umumiy: Q=cmΔt.",materials:["2 idishda yog'","Plita","Tog'ora","Termometr"],steps:["Har xil miqdorda yog' quying","Bir xil isiting","Haroratlarni taqqoslang"]}
+  ]},
+  {id:912,grade:9,title:"Yoqilg'ining solishtirma yonish issiqligi",cat:"termodynamika",icon:"⛽",experiments:[
+    {id:91201,name:"Ko'mir, kerosin, dizel yonishi",wow:false,desc:"Ko'mir gugurt bilan yonmaydi (yonish harorati 400-600°C). Kerosin va dizel idishda yonmaydi (50-60°C kerak), lekin purkalganda shiddat bilan yonadi — atomizatsiya kislorod bilan aralashishni yaxshilaydi (Q~m).",materials:["Ko'mir, kerosin, dizel","Idish","Gugurt","Purkagich"],steps:["Ko'mirni yoqib ko'ring","Kerosin/dizelni purkab yoqing","Q=qm formulasini tushuntiring"]},
+    {id:91202,name:"Benzin ochiq va yopiq idishda",wow:false,desc:"Benzin (chaqnash -40°C) bir zumda yonadi. 1-3 tomchi benzin yopiq idishda — \"paq\" etib portlaydi! Shuning uchun benzindan pechlarda foydalanib bo'lmaydi. Oktan soni vaqtidan oldin portlamaslikni bildiradi.",materials:["Benzin","Idish","Qog'oz","Gugurt"],steps:["Ochiq idishda yoqing — tez yonadi","1-3 tomchini yopiq idishda yoqing — portlaydi","Xavfsizlikni muhokama qiling"]},
+    {id:91203,name:"WOW: Propan-butan raketa ⭐",wow:true,desc:"Ochiq maydonda 0.5 l Coca-Cola idishiga gaz ballonchik suyuqligidan quyilib, og'zi pastga qaratib qo'yib yuboriladi — idish raketa kabi uchib ketadi! Suyuq gaz tez bug'lanib ulkan bosim hosil qiladi.",materials:["0.5 l idish","Gaz balonchik","Ochiq maydon"],steps:["XAVFSIZLIK: faqat ochiq maydonda","Idishga gaz quying","Og'zini pastga qaratib qo'yib yuboring"]}
+  ]},
+  {id:913,grade:9,title:"Termodinamikaning qonunlari",cat:"termodynamika",icon:"♻️",experiments:[
+    {id:91301,name:"Vodorodli shar (1-qonun)",wow:false,desc:"Butilkada NaOH va alyuminiy folga reaksiyasidan vodorod ajraladi, shar shishadi. 1-qonun: Q=A+ΔU — issiqlik yo'qolmaydi, shakli o'zgaradi. Uzoqdan olov yaqinlashtirilsa shar yonadi (vodorod — yonuvchan, yengil gaz).",materials:["Butilka","NaOH","Alyuminiy folga","Suv, shar"],steps:["IZOH: ochiq havoda bajaring","Reaksiyadan vodorod hosil qiling","Shar yonishini ko'rsating"]},
+    {id:91302,name:"Singan banka qaytmaydi (entropiya)",wow:false,desc:"Banka tashlanib sinadi — uni o'z-o'zidan qaytarib bo'lmaydi (qaytmas jarayon, entropiya oshadi). 1-qonun bunga ruxsat bersa-da, 2-qonun yo'nalishni belgilaydi. Suv bug'lanishi ham entropiyani oshiradi.",materials:["1 l banka","Tefal, suv"],steps:["Bankani tashlab sindiring","Qaytmasligini muhokama qiling","Suv bug'lanishi bilan taqqoslang"]},
+    {id:91303,name:"WOW: Suvli shar olovda yonmaydi ⭐",wow:true,desc:"Oddiy shar shamga tutilsa darhol yoriladi. Ammo ichiga ozgina suv solingan shar olovda yorilmaydi! Suv issiqlikni yutadi (ichki energiyasini oshiradi), rezina \"ko'prik\" bo'lib qoladi. Issiqlik issiqdan sovuqqa oqadi (2-qonun).",materials:["2 shar","Suv","Sham","Gugurt"],steps:["Oddiy sharni olovga tuting — yoriladi","Suvli sharni olovga tuting — yorilmaydi","Issiqlik yo'nalishini tushuntiring"]}
+  ]},
+  {id:914,grade:9,title:"Issiqlik miqdori. Aralashma harorati",cat:"termodynamika",icon:"🧊",experiments:[
+    {id:91401,name:"Agregat holatlar grafigi",wow:false,desc:"Muz qizdirilganda harorat-vaqt grafigi: qattiq isish → erish (harorat 0°C da turadi, energiya panjarani buzadi) → suyuq isish → qaynash (100°C da turadi) → gaz isish. Erish va qaynashda harorat o'zgarmaydi.",materials:["Muz","Plita","Termometr","Grafik qog'oz"],steps:["Muzga termometr tiqing","Har 30 soniyada harorat yozing","Grafik chizing"]},
+    {id:91402,name:"WOW: Aralashma haroratini oldindan hisoblash ⭐",wow:true,desc:"Ozroq issiq va ko'proq sovuq suvning massa va harorati o'lchanadi, formuladan aralashma harorati nazariy hisoblanadi, so'ng amalda aralashtirib termometr bilan tekshiriladi — mos keladi! Harorat oddiy o'rtacha emas, massaga bog'liq.",materials:["Suv","Plita","Elektron termometr","Elektron tarozi"],steps:["Issiq va sovuq suv massa/haroratini o'lchang","Formuladan haroratni hisoblang","Aralashtirib tekshiring"]}
+  ]},
+  {id:915,grade:9,title:"Ichki yonuv dvigatellari",cat:"termodynamika",icon:"🚗",experiments:[
+    {id:91501,name:"Gaz havosiz yonmaydi",wow:false,desc:"Konteynerga faqat gaz to'ldirilsa zajigalka yoqmaydi. Havo qo'shilganda — yonadi! Yonish uchun benzin/gaz emas, benzin va havo aralashmasi kerak. Aralashma portlab porshenni itaradi.",materials:["Konteyner","Zajigalka","Gaz balonchik","Skoch"],steps:["Faqat gaz to'ldirib yoqing — yonmaydi","Havo qo'shing","Yana yoqing — yonadi"]},
+    {id:91502,name:"WOW: Aralashma nisbati (kambag'al/ideal/boy) ⭐",wow:true,desc:"3 ta 20 l baklashkaga 0.5/5/2.5 ml benzin quyiladi. Kambag'al (0.5 ml) — kuchsiz ovoz; boy (5 ml) — sekin qizg'ish yonish, qora qurum; ideal (2.5 ml) — baland ko'kish olov, eng kuchli portlash. 1 g benzin uchun 14.7 g havo kerak.",materials:["3 ta 20 l baklashka","Benzin","Shpris","Gugurt"],steps:["Har xil miqdorda benzin quying","Navbat bilan yoqing","Eng kuchli portlashni aniqlang"]}
+  ]},
+  {id:917,grade:9,title:"Issiqlik mashinalari va tabiat muhofazasi",cat:"termodynamika",icon:"🌍",experiments:[
+    {id:91701,name:"Yangi va ishlatilgan moy",wow:false,desc:"Yangi (tiniq) va ishlatilgan (qora) moy doka orqali o'tkaziladi — eski moyda metall kukunlari va kuyindi qoldiqlari qoladi. Bu issiqlik mashinasi chiqindisi, tabiatga to'kilsa zaharlaydi. Moy ishqalanishni va haroratni kamaytiradi.",materials:["2 xil moy","Doka","Stakanlar"],steps:["Yangi moyni dokadan o'tkazing","Eski moyni o'tkazing","Qoldiqlarni solishtiring"]},
+    {id:91702,name:"Diskli shar havo yostig'i",wow:false,desc:"Diskli shar ishirilib silliq joyda qo'yiladi — havo disk va sirt orasidan chiqib ishqalanishni deyarli nolga keltiradi, disk havoda \"suzadi\". Ishqalanish gaz muhitida eng kichik.",materials:["Diskli shar","Silliq sirt"],steps:["Sharni ishiring","Silliq joyga qo'ying","Turtib uzoqqa uchishini ko'ring"]},
+    {id:91703,name:"WOW: Choy paketchasi uchadi (konveksiya) ⭐",wow:true,desc:"Bo'shatilgan choy paketchasi silindr qilib tepasidan yoqiladi — yonib bo'lgach yuqoriga uchib ketadi! Ichidagi issiq havo yengillashib yuqoriga intiladi (konveksiya). Issiqlik mashinalari issiqlikni mexanik ishga aylantiradi.",materials:["Choy paketchasi","Gugurt"],steps:["Paketchani bo'shatib silindr qiling","Tepasidan yoqing","Uchib ketishini kuzating"]}
+  ]},
+  {id:918,grade:9,title:"Ho'llash. Kapillyar hodisalar",cat:"molekulyar",icon:"💧",experiments:[
+    {id:91801,name:"Ho'l ip suvni oqizadi",wow:false,desc:"Quruq ipdan suv tushib ketadi. Ip suvga botirilgach, suv ip bo'ylab tez oqadi — ho'llash hodisasi. Suv ipning mayda bo'shliqlaridan o'tadi (kapillyarlik). Kiyim ho'l bo'lsa suv tolalar bo'ylab ko'tariladi.",materials:["Shpris","Ip"],steps:["Quruq ipga suv tomizing — tushadi","Ipni suvga botiring","Suvning ip bo'ylab oqishini ko'ring"]},
+    {id:91802,name:"Ho'llamaslik — tomchi yig'iladi",wow:false,desc:"Shisha yoki telefon sirtiga suv tomizilsa tomchi yoyilmay yig'iladi (ho'llamaslik). Sham yoki yog'li yuzada yanada yig'iladi. Avtomobil oynasiga maxsus suyuqlik sepiladi — suv yoyilib oqib ketsin.",materials:["Shisha/telefon sirti","Sham/yog'li yuza","Shpris"],steps:["Shishaga suv tomizing — yig'iladi","Yog'li yuzaga tomizing","Ho'llamaslikni tushuntiring"]},
+    {id:91803,name:"WOW: Salfetka rangli suvni ko'chiradi ⭐",wow:true,desc:"3 stakan: chetdagilarda ko'k va sariq suv, o'rtasi bo'sh. Salfetka ko'priklari qo'yiladi — dars davomida suv kapillyarlik orqali o'rtaga ko'chib, ranglar aralashadi! Daraxtda suv ildizdan bargga shu yo'l bilan ko'tariladi.",materials:["3 stakan","2 rang","Suv","Salfetka"],steps:["Chetdagi stakanlarga rangli suv quying","Salfetka ko'priklarni qo'ying","Suvning o'rtaga ko'chishini kuzating"]}
+  ]},
+  {id:919,grade:9,title:"Sirt taranglik kuchi",cat:"molekulyar",icon:"🫧",experiments:[
+    {id:91901,name:"Setkali banka — suv to'kilmaydi",wow:false,desc:"Temir setkali bankaga suv quyib to'nkarilsa suv to'kilmaydi — setkada hosil bo'layotgan sirt taranglik kuchi suvni ushlab turadi.",materials:["Setkali banka","Suv","Qog'oz","Katta idish"],steps:["Bankaga suv quying","Qog'oz bilan to'nkaring","Qog'ozni olib suv to'kilmasligini ko'ring"]},
+    {id:91902,name:"Stakan va skripkalar",wow:false,desc:"Liq to'la stakanga skripka va temir bo'laklar solinadi — suv to'kilmaydi. Suv ichidagi molekulalar har tomonga teng tortiladi, ustki qatlam esa faqat pastga tortilib yupqa \"plyonka\" hosil qiladi.",materials:["Stakan","Suv","Skripkalar, temir"],steps:["Stakanni liq to'ldiring","Skripkalar soling","Nechta sig'ishini sanang"]},
+    {id:91903,name:"WOW: Setka suvni o'tkazib benzinni ushlaydi ⭐",wow:true,desc:"Mayda setkadan benzin-suv aralashmasi o'tkaziladi — suv setkada qoladi (sirt taranglik koeffitsiyenti kattaroq)! Sirt taranglik uzunlikka ham bog'liq: F=σ·l. Ramka pardasi yuzasini kamaytirishga intiladi.",materials:["Mayda setka","Benzin va suv","Shampunli ramka"],steps:["Benzin-suv aralashmasini hosil qiling","Setkadan o'tkazing","Suv qolishini kuzating"]}
+  ]},
+  {id:920,grade:9,title:"Kristall va amorf jismlar",cat:"molekulyar",icon:"💎",experiments:[
+    {id:92001,name:"Grafit anizotropiyasi",wow:false,desc:"Kristall jismlarda atomlar aniq tartibda — xossalari yo'nalishga qarab har xil (anizotropiya). Grafit qatlam-qatlam: qalam yozganda qatlamlar oson ajraladi, lekin perpendikulyar ajratish qiyin. Monokristall (novvot) va polikristall (metall) farqlanadi.",materials:["Qalam (grafit)"],steps:["Grafit kristall ekanini tushuntiring","Qalam izini ko'rsating","Anizotropiyani muhokama qiling"]},
+    {id:92002,name:"WOW: Nyuton bo'lmagan suyuqlik ⭐",wow:true,desc:"Makka kraxmali va suv (5:4) aralashtiriladi. Sekin botirilsa qo'l ichiga kiradi (suyuqlik), tez musht urilsa toshdek qattiq bo'lib zarbani qaytaradi (qattiq jism)! Tez zarbada zarralar yopishib vaqtincha \"qattiq panjara\" hosil qiladi.",materials:["Makka kraxmali","Suv (5:4)","Elektron tarozi","Tog'ora"],steps:["Kraxmal va suvni aralashtiring","Sekin botiring — kiradi","Tez uring — qattiq bo'ladi"]}
+  ]},
+  {id:921,grade:9,title:"Qattiq jismlarning erishi va qotishi",cat:"termodynamika",icon:"🍫",experiments:[
+    {id:92101,name:"Shokolad, sham, muzqaymoq erishi",wow:false,desc:"Plitada shokolad, sham, muzqaymoq isitiladi — muzqaymoq birinchi, keyin shokolad, oxirida sham eriydi. Har moddaning o'z erish harorati bor. Atrof harorat erish haroratidan past bo'lsa modda qattiq qoladi.",materials:["Plita","Idish","Shokolad, sham, muzqaymoq"],steps:["Plitaga uchta moddani qo'ying","Qaysi avval erishini kuzating","Erish haroratini muhokama qiling"]},
+    {id:92102,name:"WOW: Azot bir soniyada qotiradi ⭐",wow:true,desc:"Erigan shokolad va muzqaymoq ustiga suyuq azot (-196°C) quyiladi — ko'z ochib yumguncha toshdek qotadi! Azot issiqlikni bir soniyada tortib oladi, molekulalar o'z joyiga qotadi. Modda qaysi haroratda erisa, o'sha haroratda qotadi.",materials:["Plita, idish","Suyuq azot","Shokolad, muzqaymoq"],steps:["Shokolad va muzqaymoqni eriting","Ehtiyotkorlik bilan azot quying","Qotishini kuzating"]}
+  ]},
+  {id:922,grade:9,title:"Bug'lanish va kondensatsiya. Qaynash",cat:"termodynamika",icon:"♨️",experiments:[
+    {id:92201,name:"Quruq muz va titroq tanga",wow:false,desc:"Quruq muz erimay to'g'ridan-to'g'ri gazga aylanadi (sublimatsiya). Tanga muzga tiqilsa qattiq titrab \"chirillagan\" ovoz chiqaradi — tanga muzni qizdiradi, gaz tangani turli tomondan itaradi.",materials:["Quruq muz","Tanga"],steps:["Quruq muz \"tutuni\"ni ko'rsating","Tangani muzga tiqing","Titroq ovozni eshiting"]},
+    {id:92202,name:"WOW: Havodan suv yig'ish (kondensatsiya) ⭐",wow:true,desc:"Patnisga quruq muz, ostiga yonayotgan 40% spirt qo'yiladi — issiq havo ko'tarilib muzli patnisga uriladi, sovuqdan bug' suvga aylanadi (kondensatsiya) va patnisdan toza suv tomadi! Mashina oynasi terlashi, shudring shunday hosil bo'ladi.",materials:["Patnis","Quruq muz","40% spirt","Stakan"],steps:["Patnisga muz, ostiga yonayotgan spirt qo'ying","Toza suv tomchilashini kuzating","Stakanga yig'ib ko'ring"]},
+    {id:92203,name:"Turli suyuqliklar qaynash harorati",wow:false,desc:"Suvga solingan idishlarda spirt, yog', glitsirin isitiladi — spirt 78°C da qaynaydi (suvdan oldin), yog' va glitsirin esa suv qaynasa ham qaynamaydi (yuqori harorat). Qaynash bosimga bog'liq: tog'da suv 82°C da qaynaydi (Q=r·m).",materials:["Plita","Idishlar","Termometr","Spirt, yog', glitsirin, suv"],steps:["Suyuqliklarni suvli idishga soling","Isitib termometr bilan kuzating","Qaynash haroratlarini taqqoslang"]}
+  ]},
+  {id:923,grade:9,title:"Atmosferadagi hodisalar",cat:"termodynamika",icon:"🌪️",experiments:[
+    {id:92301,name:"Bankada tuman hosil bo'lishi",wow:false,desc:"Bankaga ozgina qaynoq suv va dezodorant sepilib, qopqoq yopiladi va ustiga muzqaymoq qo'yiladi — banka ichida tuman paydo bo'ladi! Issiq bug' muz ta'sirida sovib kondensatsiyalanadi, dezodorant zarralari \"markaz\" bo'ladi.",materials:["Banka","Muzqaymoq","Dezodorant","Qaynoq suv"],steps:["Bankaga qaynoq suv va dezodorant seping","Qopqoqni yopib muz qo'ying","Tuman hosil bo'lishini kuzating"]},
+    {id:92302,name:"Chortoq tornadosi va Koriolis effekti",wow:false,desc:"Ikki Chortoq idishi ulanib suv aylantiriladi — tornado shaklida pastga tushadi. Aylanayotgan qog'ozda chizilgan \"to'g'ri\" chiziq egri bo'lib chiqadi (Koriolis effekti) — Yer aylangani uchun shamol aylanadi. Bu namlikni butun dunyoga taqsimlaydi.",materials:["2 Chortoq idishi","Izolenta","Aylana qog'oz"],steps:["Idishlarni ulab suv aylantiring","Tornado shaklini kuzating","Qog'ozda Koriolis effektini ko'ring"]},
+    {id:92303,name:"WOW: Trubochkali idish tez bo'shaydi ⭐",wow:true,desc:"Chortoq idishi 3 usulda bo'shatiladi va taymerda o'lchanadi: shunchaki to'nkarish (sekin), aylantirib to'nkarish (tezroq), trubochka bilan (eng tez)! Trubochka orqali atmosfera bosimi ichkariga kirib suvni itaradi.",materials:["Chortoq idishi","Suv","Trubochka","Taymer"],steps:["Shunchaki to'nkarib vaqtni o'lchang","Aylantirib to'nkaring","Trubochka bilan to'nkaring — eng tez"]}
+  ]},
+  {id:924,grade:9,title:"Yorug'likning sinish va qaytish qonuni",cat:"optika",icon:"🔦",experiments:[
+    {id:92401,name:"Lazer oynadan qaytadi",wow:false,desc:"Oyna ustiga isiriq tutatilib lazer tushiriladi — tutunda nur yo'li yaqqol ko'rinadi. Nur qaysi burchakda tushsa shunday qaytadi (α=γ). Silliq sirt — tekis qaytish, g'adir sirt — diffuz qaytish (narsalarni shu sabab ko'ramiz).",materials:["Lazer","Oyna","Isiriq"],steps:["Oyna ustida isiriq tutating","Lazer tushiring","Tushish va qaytish burchaklarini ko'ring"]},
+    {id:92402,name:"WOW: Absolyut qora jism ⭐",wow:true,desc:"Ichi qora bo'yalgan idish, og'zida kichik teshik. Teshik kartonning o'zidan ham qoraroq! Karton yuzasidan ozgina nur qaytadi, lekin teshikka kirgan nur ichkarida qayta-qayta urilib butunlay yutiladi. Bu absolyut qora jism — nurni 100% yutadi.",materials:["Ichi qora idish","Qora karton (teshikli)"],steps:["Idish og'zini teshikli karton bilan yoping","Teshik va kartonni solishtiring","Qaysi qoraroq ekanini ko'ring"]},
+    {id:92403,name:"Nur sinishi (Snellius qonuni)",wow:false,desc:"Yorug'lik havodan suvga o'tganda sinadi — yo'nalishini o'zgartiradi, chunki tezligi har muhitda har xil (suvda sekinroq). Sindirish ko'rsatkichi n=c/v. Snellius qonuni: n₂/n₁=sinα/sinβ.",materials:["Lazer","Suvli idish","Isiriq"],steps:["Lazerni suvga yo'naltiring","Sinishni kuzating","n=c/v ni tushuntiring"]}
+  ]},
+  {id:926,grade:9,title:"Bernuli qonuni",cat:"mexanika",icon:"✈️",experiments:[
+    {id:92601,name:"Koptok varonkaga yopishadi",wow:false,desc:"Kompressordan kuchli havo berilib varonka teskari aylantiriladi — koptok tushmay yopishadi! Shar va devor orasidan havo tezligi oshadi, tezlik katta joyda bosim kichik (P+ρv²/2=const).",materials:["Varonka","Tennis to'pi","Kompressor"],steps:["Koptokni varonkaga soling","Havo bering","Teskari aylantiring — yopishadi"]},
+    {id:92602,name:"Venturi trubkasi va pulverizator",wow:false,desc:"Tor quvurdan havo o'tkazilganda rangli suv ko'tariladi — tor joyda tezlik katta, bosim kichik. Pulverizator (bo'yoq, atir) shu Venturi effektiga asoslangan: tez havo past bosim hosil qilib suyuqlikni tortadi.",materials:["Venturi trubkasi","Rangli suv","Pulverizator","Kompressor"],steps:["Trubkani suvga ulang","Havo yuboring","Suv ko'tarilishini kuzating"]},
+    {id:92603,name:"WOW: Sharlar va po'kaklar havoda ko'tariladi ⭐",wow:true,desc:"Silindr trubkadan havo yuborilganda idishdagi mayda sharchalar ko'tariladi, shlangdan chiqayotgan havo po'kaklarni ko'taradi. Tez oqayotgan gaz past bosim hosil qilib jismlarni o'zi bilan olib ketadi.",materials:["Rangli sharlar","Silindr trubka","Shlanka, po'kak","Kompressor"],steps:["Sharlarni idishga soling","Trubkadan havo yuboring","Ko'tarilishini kuzating"]}
+  ]},
+  {id:927,grade:9,title:"To'la ichki qaytish",cat:"optika",icon:"🌈",experiments:[
+    {id:92701,name:"WOW: Lazer suv oqimida egiladi ⭐",wow:true,desc:"Teshilgan baklashkadan suv oqadi, lazer teshikka yo'naltiriladi — nur suv bilan birga egilib pastdagi idishga yetadi! To'la ichki qaytish: nur suv devorlariga urilib tashqariga chiqmaydi. Optik tola xuddi shunday ishlaydi.",materials:["Teshikli baklashka","Suv","Lazer","Konteyner"],steps:["Baklashkani suvga to'ldiring","Lazerni teshikka yo'naltiring","Nur suv bilan egilishini kuzating"]},
+    {id:92702,name:"Akril yog'da g'oyib bo'ladi",wow:false,desc:"Yog'ga akril silindr tushiriladi — akril \"g'oyib bo'ladi\"! Yog' va akrilning sindirish ko'rsatkichi (optik xarakteri) bir xil, shuning uchun nur sinmaydi, ular bir butun bo'lib ko'rinadi.",materials:["Idish","Yog'","Akril silindr"],steps:["Idishga yog' quying","Akrilni tushiring","G'oyib bo'lishini kuzating"]},
+    {id:92703,name:"Qora shar lupada yoriladi",wow:false,desc:"Quyosh nuri lupa bilan rangli sharlarga yig'iladi — qora shar tez yoriladi, oq shar yorilmaydi. Oq rang nurni qaytaradi, qora rang energiyani yutib issiqlikka aylantiradi va materialni eritadi.",materials:["Oq, qora, qizil shar","Lupa","Quyosh nuri"],steps:["Sharlarni lupa bilan qizdiring","Qora shar yorilishini kuzating","Oq shar yorilmasligini ko'ring"]}
+  ]},
+  {id:929,grade:9,title:"Linzalar",cat:"optika",icon:"🔍",experiments:[
+    {id:92901,name:"Yig'uvchi va sochuvchi linza",wow:false,desc:"Qavariq linza parallel nurlarni bosh fokusda (F) yig'adi (yig'uvchi), botiq linza sochadi. Optik markazdan o'tgan nur og'maydi. Optik kuch D=1/F, birligi dioptriya. 1/F=1/d+1/f.",materials:["Linzalar to'plami","Lazer"],steps:["Qavariq linzaga nur yo'naltiring — fokusda yig'iladi","Botiq linzaga yo'naltiring — sochiladi","Optik kuchni hisoblang"]},
+    {id:92902,name:"WOW: Linza bilan tasvir yasash ⭐",wow:true,desc:"Linza va lazer bilan 6 xil holatda tasvir hosil qilinadi (haqiqiy/mavhum, to'g'ri/teskari, katta/kichik). Ko'z gavhari ham qavariq linza — to'r pardada haqiqiy, kichik, teskari tasvir hosil qiladi va fokusni o'zgartira oladi.",materials:["Linzalar to'plami","Lazer","Ekran"],steps:["Buyumni har xil masofaga qo'ying","Tasvirni ekranda toping","6 holatni doskada chizing"]},
+    {id:92903,name:"Ko'z nuqsonlari va ko'zoynak",wow:false,desc:"Yaqindan ko'rarlikda tasvir to'r pardaga yetmaydi — botiq (manfiy) linzali ko'zoynak tasvirni surib beradi. Uzoqdan ko'rarlikda tasvir orqada — qavariq (musbat) linzali ko'zoynak yaqinlashtiradi.",materials:["Botiq va qavariq linzalar"],steps:["Yaqindan ko'rarlikni tushuntiring","Botiq linza ta'sirini ko'rsating","Qavariq linza bilan taqqoslang"]}
+  ]},
+  {id:930,grade:9,title:"Tasvir yasash. To'la ichki qaytish",cat:"optika",icon:"🪞",experiments:[
+    {id:93001,name:"Lupa fokus masofasini topish",wow:false,desc:"Sham va ekran orasida lupa siljitiladi. Tasvir sham bilan bir xil o'lchamda bo'lganda d=f=2F. O'lchangan masofaning yarmi fokus masofasi (F), undan optik kuch D=1/F topiladi.",materials:["Lupa","Ekran","Sham","Lineyka"],steps:["Sham-lupa-ekran qo'ying","Bir xil o'lchamli tasvirni toping","d va f ni o'lchab F ni hisoblang"]},
+    {id:93002,name:"Tindal effekti",wow:false,desc:"Toza havo/suvda lazer nuri ko'rinmaydi. Kraxmal sepilganda nur yo'li ko'rinadi — Tindal effekti: nur mayda zarrachalarga urilib sochiladi. Tumandagi faralar, daraxt orasidagi quyosh nuri, kinozal proyektori shunday.",materials:["Lazer","Kraxmal"],steps:["Toza havoda lazerni yoqing — ko'rinmaydi","Kraxmal seping","Nur izini ko'ring"]},
+    {id:93003,name:"WOW: Stakan suvi strelkani teskari qiladi ⭐",wow:true,desc:"Stakan orqasiga o'ngga qaragan strelka qo'yiladi. Stakanga suv quyilganda strelka teskari (chapga) o'giriladi! Stakan va suv yig'uvchi silindrik linza bo'lib, tasvirni fokusdan o'tkazib teskari qiladi (2F masofa).",materials:["Shaffof stakan","Suv","Strelkali qog'oz"],steps:["Strelkani stakan orqasiga qo'ying","Stakanga suv quying","Strelkaning teskari bo'lishini ko'ring"]}
+  ]},
+  {id:931,grade:9,title:"Optik asboblar",cat:"optika",icon:"🔭",experiments:[
+    {id:93101,name:"Mikroskop va dispersiya",wow:false,desc:"Mikroskop ikki linza bilan tasvirni minglab marta kattalashtiradi (obyektiv + okulyar). CD diskka fanar nuri tushirilsa oq nur kamalakka ajraladi (dispersiya) — har rangning o'z to'lqin uzunligi bor (qizil — uzun, binafsha — qisqa).",materials:["Mikroskop","Fanar","CD disk"],steps:["Mikroskopda obyekt ko'ring","Diskka nur tushiring","Kamalak hosil bo'lishini kuzating"]},
+    {id:93102,name:"WOW: Cheksiz oyna tunneli ⭐",wow:true,desc:"Atrofi LED chiroqli oyna 12V ga ulanadi — chiroqlar bir-birining ichiga kirib cheksiz tunnel hosil qiladi! Har qaytish yangi tasvir (ko'p karrali aks etish). Lekin har safar energiya yutiladi, shuning uchun tasvir xiralashib boradi.",materials:["Chetida chiroqli oyna","12V block pitaniya"],steps:["Qurilmani 12V ga ulang","Cheksiz tunnelni kuzating","Tasvir xiralashishini ko'ring"]},
+    {id:93103,name:"Stroboskopik effekt — suv tepaga oqadi",wow:false,desc:"Suvli suvenir tokka ulanganda suv pastdan tepaga oqayotgandek ko'rinadi! Chiroqlar tez o'chib-yonadi (50 Hz), ko'z ilg'amaydi — miya \"kadrlarni\" noto'g'ri idrok etadi. Bu kinodagi kadrlar kabi yorug'lik illuziyasi.",materials:["Suvli suvenir","Block pitaniya"],steps:["Suvenir-ni tokka ulang","Suv harakatini kuzating","Stroboskopik effektni tushuntiring"]}
+  ]},
+  {id:932,grade:9,title:"Geliotexnika",cat:"optika",icon:"☀️",experiments:[
+    {id:93201,name:"Quyosh paneli — fotoeffekt",wow:false,desc:"Quyosh paneli LEDga ulanib nurga tutiladi — fotoeffekt orqali to'g'ridan-to'g'ri elektr hosil bo'ladi. Kremniy nurni yutganda elektronlar qo'zg'aladi. O'zbekiston cho'llarida ulkan quyosh stansiyalari qurilmoqda — arzon, toza, cheksiz.",materials:["Quyosh paneli","LED"],steps:["Panelni LEDga ulang","Quyosh nuriga tuting","LED yonishini kuzating"]},
+    {id:93202,name:"Radiometr quyoshda aylanadi",wow:false,desc:"Radiometr quyosh nuriga qo'yilganda parraklari aylanadi. Qora tomon nurni yutib qiziydi, yonidagi havo kengayib bosim hosil qiladi va parrakni itaradi. Quyosh nurida mexanik energiya bor.",materials:["Radiometr","Quyosh nuri"],steps:["Radiometrni quyoshga qo'ying","Parraklar aylanishini kuzating","Issiqlik bosimini tushuntiring"]},
+    {id:93203,name:"WOW: Lupa nurni fokuslab qog'oz yoqadi ⭐",wow:true,desc:"Lupa quyosh nurini bir nuqtaga (fokusga) to'playdi — qog'oz tutaydi! Ibn Sino \"Donishnoma\"da yozgan. Parkentdagi \"Quyosh sandoni\" minglab ko'zgu bilan nurni jamlab 3000°C ga yetkazadi — po'lat eritish uchun yetarli.",materials:["Lupa","Qog'oz/gugurt","Quyosh nuri"],steps:["Lupa bilan nurni qog'ozga yig'ing","Qog'ozning tutashini kuzating","Quyosh sandonini tushuntiring"]}
+  ]},
+  {id:933,grade:9,title:"Amaliy dars. Statistik metod",cat:"mexanika",icon:"📐",experiments:[
+    {id:93301,name:"WOW: Suvli raketa optimal massasi ⭐",wow:true,desc:"Baklashkaga nasos bilan havo uriladi — ostidan otilganda raketa kabi uchadi. Har xil suv massasi (100-400 g) bilan uchish masofasi statistik metod orqali o'lchanadi: 200-300 g orasida eng baland uchadi! Analitik, model va statistik metodlar solishtiriladi.",materials:["Nasos","Baklashka (0.5 l)","Suv","Tarozi"],steps:["Har xil massada suv quying","20 marta nasos urib uchiring","Masofalarni o'lchab maksimumni toping"]},
+    {id:93302,name:"Optimallashtirish — nozik sozlash",wow:false,desc:"200 va 300 g yaxshi uchgach, 220/250/280 g sinab eng aniq maksimal massa topiladi. Statistik metodning afzalligi — real sharoitda optimal yechim; kamchiligi — faqat shu jihozlar uchun to'g'ri.",materials:["Nasos","Baklashka","Suv","Tarozi"],steps:["200-300 g oralig'ini aniqlang","220/250/280 g sinang","Maksimal massani toping"]}
+  ]}
+];
+
+// ═══════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════
+let DATA = [];
+let currentView = 'dashboard';
+let currentFilter = null;
+let currentGrade = 7;
+let editLessonId = null;
+let editExpId = null;
+let editExpLessonId = null;
+let editExpData = null;
+let confirmCallback = null;
+
+// ═══════════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════════
+const STORE_KEY = 'fizikaLabData_v2';
+const THEME_KEY = 'fizikaLabTheme';
+const GRADE_KEY = 'fizikaLabGrade';
+
+function migrate(arr) {
+  // Eski (faqat 7-sinf) ma'lumotlarda grade bo'lmasligi mumkin
+  (arr||[]).forEach(l => { if(l.grade===undefined) l.grade = 7; });
+  return arr;
+}
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved) {
+      DATA = migrate(JSON.parse(saved));
+    } else {
+      DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      saveData();
+    }
+  } catch(e) {
+    DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+}
+
+function saveData() {
+  localStorage.setItem(STORE_KEY, JSON.stringify(DATA));
+  updateStats();
+}
+
+// Joriy sinfga tegishli darslar
+function gradeData() {
+  return DATA.filter(l => l.grade === currentGrade);
+}
+
+function updateStats() {
+  const gd = gradeData();
+  const total = gd.length;
+  const exps = gd.reduce((s,l)=>s+l.experiments.length,0);
+  const wows = gd.reduce((s,l)=>s+l.experiments.filter(e=>e.wow).length,0);
+  const cats = {};
+  gd.forEach(l => { cats[l.cat] = (cats[l.cat]||0)+1; });
+
+  document.getElementById('stat-lessons').textContent = total;
+  document.getElementById('stat-exps').textContent = exps;
+  document.getElementById('stat-wow').textContent = wows;
+  document.getElementById('nb-total').textContent = total;
+  document.getElementById('nb-wow').textContent = wows;
+  document.getElementById('nb-mexanika').textContent = cats.mexanika||0;
+  document.getElementById('nb-termo').textContent = cats.termodynamika||0;
+  document.getElementById('nb-elektr').textContent = cats.elektr||0;
+  document.getElementById('nb-magnit').textContent = cats.magnit||0;
+  document.getElementById('nb-molekulyar').textContent = cats.molekulyar||0;
+  document.getElementById('nb-optika').textContent = cats.optika||0;
+  refreshNav(cats);
+}
+
+// Joriy sinfda mavjud bo'lmagan kategoriyalarni yashirish
+function refreshNav(cats) {
+  const map = {mexanika:'mexanika', termodynamika:'termodynamika', elektr:'elektr',
+               magnit:'magnit', molekulyar:'molekulyar', optika:'optika'};
+  Object.keys(map).forEach(c => {
+    const el = document.getElementById('nav-'+c);
+    if(el) el.style.display = (cats[c]||0) > 0 ? '' : 'none';
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════
+function gradeTitle() { return 'Amaliy Fizika — ' + currentGrade + '-sinf'; }
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+name);
+  if(navEl) navEl.classList.add('active');
+  currentView = name;
+
+  document.getElementById('back-btn').style.display = 'none';
+  document.getElementById('breadcrumb').textContent = {
+    dashboard:'Barcha darslar', wow:'WOW-tajribalar',
+    settings:'Sozlamalar', detail:'Dars tafsiloti'
+  }[name] || '';
+
+  document.getElementById('page-title').textContent = {
+    dashboard: gradeTitle(),
+    wow:'WOW-tajribalar — ' + currentGrade + '-sinf',
+    settings:'Ma\'lumotlar va sozlamalar',
+    detail:'Dars tafsiloti'
+  }[name] || '';
+
+  if(name === 'dashboard') { currentFilter = null; renderDashboard(); }
+  if(name === 'wow') renderWow();
+  if(name === 'settings') renderSettings();
+}
+
+// ═══════════════════════════════════════════════════
+// SINF ALMASHTIRISH
+// ═══════════════════════════════════════════════════
+function switchGrade(g) {
+  currentGrade = g;
+  localStorage.setItem(GRADE_KEY, String(g));
+  currentFilter = null;
+  document.getElementById('sidebar-search').value = '';
+  ['7','8','9'].forEach(n=>{
+    document.getElementById('grade-'+n).classList.toggle('active', String(g)===n);
+  });
+  document.getElementById('logo-sub').textContent = g + '-sinf platformasi';
+  updateStats();
+  showView('dashboard');
+}
+
+// ═══════════════════════════════════════════════════
+// KUN / TUN REJIMI
+// ═══════════════════════════════════════════════════
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const dark = theme === 'dark';
+  document.getElementById('theme-icon').textContent = dark ? '🌙' : '☀️';
+  document.getElementById('theme-label').textContent = dark ? 'Tungi' : 'Kunduzgi';
+}
+
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  applyTheme(next);
+  localStorage.setItem(THEME_KEY, next);
+}
+
+function filterCat(cat) {
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('nav-'+cat)?.classList.add('active');
+  currentFilter = cat;
+  showView('dashboard');
+  document.getElementById('page-title').textContent = {
+    mexanika:'Mexanika', termodynamika:'Issiqlik',
+    elektr:'Elektr', magnit:'Magnetizm',
+    molekulyar:'Molekulyar fizika', optika:'Optika'
+  }[cat];
+}
+
+function backToDashboard() {
+  currentFilter = null;
+  showView('dashboard');
+}
+
+function showDetail(id) {
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('view-detail').classList.add('active');
+  currentView = 'detail';
+  document.getElementById('back-btn').style.display = '';
+  renderDetail(id);
+  document.getElementById('breadcrumb').textContent = 'Barcha darslar → Dars';
+  document.getElementById('page-title').textContent = DATA.find(l=>l.id===id)?.title || '';
+}
+
+function sidebarSearch() {
+  const q = document.getElementById('sidebar-search').value.trim().toLowerCase();
+  if(!q) { currentFilter = null; if(currentView==='dashboard') renderDashboard(); return; }
+  currentFilter = null;
+  showView('dashboard');
+  document.getElementById('page-title').textContent = `Qidiruv: "${q}"`;
+  const filtered = gradeData().filter(l=>l.title.toLowerCase().includes(q)||l.experiments.some(e=>e.name.toLowerCase().includes(q)));
+  renderCards(filtered);
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER DASHBOARD
+// ═══════════════════════════════════════════════════
+function renderDashboard() {
+  const gd = gradeData();
+  let filtered = currentFilter ? gd.filter(l=>l.cat===currentFilter) : gd;
+  renderCards(filtered);
+}
+
+function renderCards(list) {
+  const con = document.getElementById('cards-container');
+  if(list.length === 0) {
+    con.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>Hech narsa topilmadi</h3><p>Qidiruv so'zini o'zgartirib ko'ring</p></div>`;
+    return;
+  }
+  con.innerHTML = `<div class="cards-grid">${list.map(l=>lessonCardHTML(l)).join('')}</div>`;
+}
+
+function lessonCardHTML(l) {
+  const normal = l.experiments.filter(e=>!e.wow);
+  const wow = l.experiments.filter(e=>e.wow);
+  const showExps = l.experiments.slice(0,3);
+  return `
+  <div class="lesson-card cat-${l.cat}" onclick="showDetail(${l.id})">
+    <div class="card-accent"></div>
+    <div class="card-body">
+      <div class="card-top-row">
+        <div class="card-emoji">${l.icon}</div>
+        <div class="card-info">
+          <div class="card-title">${l.title}</div>
+          <div class="card-meta">${catLabel(l.cat)}</div>
+        </div>
+        <button class="icon-btn" onclick="event.stopPropagation();openEditLesson(${l.id})" title="Tahrirlash">✏️</button>
+        <button class="icon-btn del" onclick="event.stopPropagation();confirmDelete(${l.id})" title="O'chirish">🗑</button>
+      </div>
+      <div class="exp-chips">
+        ${showExps.map(e=>`
+          <div class="exp-chip ${e.wow?'wow':''}">
+            <span class="chip-badge ${e.wow?'wow':'normal'}">${e.wow?'⭐ WOW':'✅'}</span>
+            <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px">${e.name.replace(' ⭐','')}</span>
+          </div>
+        `).join('')}
+        ${l.experiments.length>3?`<div style="font-size:11px;color:var(--text3);padding:2px 0">+${l.experiments.length-3} ta yana...</div>`:''}
+      </div>
+      <div class="card-footer-row">
+        <div class="count-badges">
+          <span class="count-badge exp">📋 ${normal.length}</span>
+          <span class="count-badge wow">⭐ ${wow.length}</span>
+        </div>
+        <span class="open-link">Ko'rish →</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function catLabel(c) {
+  return {mexanika:'⚙️ Mexanika',termodynamika:'🌡️ Issiqlik',elektr:'⚡ Elektr',magnit:'🧲 Magnetizm',molekulyar:'⚛️ Molekulyar',optika:'💡 Optika'}[c]||c;
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER DETAIL
+// ═══════════════════════════════════════════════════
+function renderDetail(id) {
+  const lesson = DATA.find(l=>l.id===id);
+  if(!lesson) return;
+  const normal = lesson.experiments.filter(e=>!e.wow);
+  const wow = lesson.experiments.filter(e=>e.wow);
+  const con = document.getElementById('detail-content');
+  con.innerHTML = `
+    <div class="detail-header">
+      <div class="detail-icon-row">
+        <div class="detail-big-icon">${lesson.icon}</div>
+        <div>
+          <div class="detail-title">${lesson.title}</div>
+          <div class="detail-meta-row">
+            <span class="detail-badge">${catLabel(lesson.cat)}</span>
+            <span class="detail-badge">📋 ${normal.length} ta tajriba</span>
+            <span class="detail-badge">⭐ ${wow.length} ta WOW</span>
+          </div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="btn" onclick="openEditLesson(${lesson.id})">✏️ Darsni tahrirlash</button>
+          <button class="btn primary" onclick="openAddExp(${lesson.id})">+ Tajriba qo'shish</button>
+        </div>
+      </div>
+    </div>
+
+    ${normal.length>0?`
+    <div class="section-lbl">Oddiy tajribalar</div>
+    ${normal.map(e=>expDetailCardHTML(e, lesson.id)).join('')}`:''}
+
+    ${wow.length>0?`
+    <div class="section-lbl">⭐ WOW-tajribalar</div>
+    ${wow.map(e=>expDetailCardHTML(e, lesson.id)).join('')}`:''}
+
+    ${lesson.experiments.length===0?`<div class="empty-state"><div class="icon">🔬</div><h3>Hali tajriba yo'q</h3><p>+ Tajriba qo'shish tugmasini bosing</p></div>`:''}
+  `;
+}
+
+function expDetailCardHTML(e, lessonId) {
+  return `
+  <div class="exp-detail-card ${e.wow?'wow-card':''}">
+    <div class="exp-card-header">
+      <div class="exp-card-title">
+        ${e.wow?'⭐':'🔬'}
+        <span>${e.name.replace(' ⭐','')}</span>
+      </div>
+      <div style="display:flex;gap:4px">
+        <button class="icon-btn" onclick="openEditExp(${lessonId},${e.id})" title="Tahrirlash">✏️</button>
+        <button class="icon-btn del" onclick="confirmDeleteExp(${lessonId},${e.id})" title="O'chirish">🗑</button>
+      </div>
+    </div>
+    <div class="exp-card-desc">${e.desc}</div>
+    ${e.materials&&e.materials.length?`
+      <div class="section-lbl" style="margin-top:6px;font-size:10px">Kerakli jihozlar</div>
+      <div class="materials-row">${e.materials.map(m=>`<span class="mat-tag">📦 ${m}</span>`).join('')}</div>
+    `:''}
+    ${e.steps&&e.steps.length?`
+      <div class="section-lbl" style="margin-top:8px;font-size:10px">Bajarish tartibi</div>
+      <ul class="steps-list">${e.steps.map((s,i)=>`<li class="step-item"><div class="step-n">${i+1}</div><span>${s}</span></li>`).join('')}</ul>
+    `:''}
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER WOW
+// ═══════════════════════════════════════════════════
+function renderWow() {
+  const con = document.getElementById('wow-container');
+  const wowItems = gradeData().flatMap(l=>l.experiments.filter(e=>e.wow).map(e=>({...e,lessonTitle:l.title,lessonIcon:l.icon,lessonId:l.id})));
+  if(!wowItems.length) { con.innerHTML=`<div class="empty-state"><div class="icon">⭐</div><h3>WOW-tajriba yo'q</h3></div>`; return; }
+  con.innerHTML = `<div class="wow-grid">${wowItems.map(e=>`
+    <div class="wow-big-card">
+      <div class="wow-big-header">
+        <div class="wow-big-emoji">${e.lessonIcon}</div>
+        <div>
+          <div class="wow-big-lesson">⭐ ${e.lessonTitle}</div>
+          <div class="wow-big-title">${e.name.replace(' ⭐','')}</div>
+        </div>
+      </div>
+      <div class="wow-big-desc">${e.desc}</div>
+      ${e.materials&&e.materials.length?`<div class="wow-mat-row">${e.materials.map(m=>`<span class="wow-mat-tag">📦 ${m}</span>`).join('')}</div>`:''}
+    </div>
+  `).join('')}</div>`;
+}
+
+// ═══════════════════════════════════════════════════
+// RENDER SETTINGS
+// ═══════════════════════════════════════════════════
+function renderSettings() {
+  const pre = document.getElementById('data-preview');
+  const compact = JSON.stringify(DATA).substring(0,500)+'...';
+  pre.textContent = compact;
+}
+
+// ═══════════════════════════════════════════════════
+// ADD/EDIT LESSON MODAL
+// ═══════════════════════════════════════════════════
+function openAddLesson() {
+  editLessonId = null;
+  document.getElementById('lesson-modal-title').textContent = 'Yangi dars qo\'shish';
+  document.getElementById('lesson-modal-body').innerHTML = lessonFormHTML(null);
+  document.getElementById('lesson-modal').classList.add('open');
+}
+
+function openEditLesson(id) {
+  editLessonId = id;
+  const lesson = DATA.find(l=>l.id===id);
+  document.getElementById('lesson-modal-title').textContent = 'Darsni tahrirlash';
+  document.getElementById('lesson-modal-body').innerHTML = lessonFormHTML(lesson);
+  document.getElementById('lesson-modal').classList.add('open');
+}
+
+function lessonFormHTML(lesson) {
+  const cats = ['mexanika','termodynamika','elektr','magnit','molekulyar','optika'];
+  const emojis = ['🚗','🎯','⚗️','💫','💧','📐','⚡','🌀','🔥','🌊','🚀','🌬️','🌡️','✈️','💡','⚙️','🔬','📚','🧲','⚛️','🔋','🧊','☀️','🔭'];
+  return `
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Mavzu nomi</label>
+        <input class="form-input" id="fl-title" placeholder="Masalan: Tekis harakat" value="${lesson?.title||''}">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Kategoriya</label>
+        <select class="form-select" id="fl-cat">
+          ${cats.map(c=>`<option value="${c}" ${lesson?.cat===c?'selected':''}>${catLabel(c)}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Dars ikonasi (emoji)</label>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+        ${emojis.map(em=>`<span style="cursor:pointer;font-size:20px;padding:4px;border-radius:6px;border:1px solid ${lesson?.icon===em?'var(--accent)':'var(--border)'};background:${lesson?.icon===em?'var(--accent-bg)':'transparent'}" onclick="selectEmoji('${em}',this)">${em}</span>`).join('')}
+      </div>
+      <input class="form-input" id="fl-icon" placeholder="Yoki o'zingiz kiriting: 🧪" value="${lesson?.icon||'📚'}">
+    </div>
+  `;
+}
+
+function selectEmoji(em, el) {
+  document.querySelectorAll('#lesson-modal-body span[onclick]').forEach(s=>{
+    s.style.borderColor='var(--border)'; s.style.background='transparent';
+  });
+  el.style.borderColor='var(--accent)'; el.style.background='var(--accent-bg)';
+  document.getElementById('fl-icon').value = em;
+}
+
+function saveLesson() {
+  const title = document.getElementById('fl-title').value.trim();
+  const cat = document.getElementById('fl-cat').value;
+  const icon = document.getElementById('fl-icon').value.trim() || '📚';
+  if(!title) { toast('Mavzu nomini kiriting!','error'); return; }
+
+  if(editLessonId) {
+    const lesson = DATA.find(l=>l.id===editLessonId);
+    lesson.title = title; lesson.cat = cat; lesson.icon = icon;
+    toast('Dars saqlandi ✓');
+  } else {
+    const newId = Date.now();
+    DATA.push({id:newId, grade:currentGrade, title, cat, icon, experiments:[]});
+    toast('Yangi dars qo\'shildi ✓');
+  }
+  saveData();
+  closeLessonModal();
+  if(currentView==='dashboard') renderDashboard();
+  else if(currentView==='detail' && editLessonId) renderDetail(editLessonId);
+}
+
+function closeLessonModal() {
+  document.getElementById('lesson-modal').classList.remove('open');
+  editLessonId = null;
+}
+
+// ═══════════════════════════════════════════════════
+// ADD/EDIT EXP MODAL
+// ═══════════════════════════════════════════════════
+function openAddExp(lessonId) {
+  editExpId = null;
+  editExpLessonId = lessonId;
+  editExpData = null;
+  document.getElementById('exp-modal-title').textContent = 'Tajriba qo\'shish';
+  document.getElementById('exp-modal-body').innerHTML = expFormHTML(null);
+  initTagInputs();
+  document.getElementById('exp-modal').classList.add('open');
+}
+
+function openEditExp(lessonId, expId) {
+  editExpLessonId = lessonId;
+  editExpId = expId;
+  const lesson = DATA.find(l=>l.id===lessonId);
+  const exp = lesson?.experiments.find(e=>e.id===expId);
+  editExpData = exp;
+  document.getElementById('exp-modal-title').textContent = 'Tajribani tahrirlash';
+  document.getElementById('exp-modal-body').innerHTML = expFormHTML(exp);
+  initTagInputs();
+  document.getElementById('exp-modal').classList.add('open');
+}
+
+function expFormHTML(exp) {
+  return `
+    <div class="form-group">
+      <label class="form-label">Tajriba nomi</label>
+      <input class="form-input" id="fe-name" placeholder="Masalan: Suv tomchi aravacha" value="${exp?.name.replace(' ⭐','')||''}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Tavsif</label>
+      <textarea class="form-textarea" id="fe-desc" placeholder="Tajriba nima ko'rsatadi, nimasi qiziqarli...">${exp?.desc||''}</textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label" style="display:flex;align-items:center;gap:8px">
+        <input type="checkbox" id="fe-wow" ${exp?.wow?'checked':''} style="width:14px;height:14px">
+        ⭐ Bu WOW-tajriba
+      </label>
+    </div>
+    <hr class="divider">
+    <div class="form-group">
+      <label class="form-label">Kerakli jihozlar</label>
+      <div class="tag-input-wrap" id="materials-wrap">
+        ${(exp?.materials||[]).map(m=>`<span class="tag-item">${m}<button onclick="removeTag(this,'materials-wrap')">×</button></span>`).join('')}
+        <input class="tag-add-input" id="mat-input" placeholder="Jihozni yozing, Enter bosing..." onkeydown="tagKeydown(event,'materials-wrap','mat-input')">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Bajarish tartibi</label>
+      <div class="tag-input-wrap" id="steps-wrap">
+        ${(exp?.steps||[]).map(s=>`<span class="tag-item">${s}<button onclick="removeTag(this,'steps-wrap')">×</button></span>`).join('')}
+        <input class="tag-add-input" id="step-input" placeholder="1-qadam yozing, Enter bosing..." onkeydown="tagKeydown(event,'steps-wrap','step-input')">
+      </div>
+    </div>
+  `;
+}
+
+function tagKeydown(e, wrapId, inputId) {
+  if(e.key==='Enter' || e.key===',') {
+    e.preventDefault();
+    const val = document.getElementById(inputId).value.trim();
+    if(!val) return;
+    const wrap = document.getElementById(wrapId);
+    const tag = document.createElement('span');
+    tag.className = 'tag-item';
+    tag.innerHTML = `${val}<button onclick="removeTag(this,'${wrapId}')">×</button>`;
+    wrap.insertBefore(tag, document.getElementById(inputId));
+    document.getElementById(inputId).value = '';
+  }
+}
+
+function removeTag(btn, wrapId) { btn.parentElement.remove(); }
+function initTagInputs() {}
+
+function getTagValues(wrapId) {
+  const wrap = document.getElementById(wrapId);
+  return Array.from(wrap.querySelectorAll('.tag-item')).map(t=>t.childNodes[0].textContent.trim()).filter(Boolean);
+}
+
+function saveExp() {
+  const name = document.getElementById('fe-name').value.trim();
+  const desc = document.getElementById('fe-desc').value.trim();
+  const wow = document.getElementById('fe-wow').checked;
+  const materials = getTagValues('materials-wrap');
+  const steps = getTagValues('steps-wrap');
+  if(!name) { toast('Tajriba nomini kiriting!','error'); return; }
+
+  const lesson = DATA.find(l=>l.id===editExpLessonId);
+  if(!lesson) return;
+
+  if(editExpId) {
+    const exp = lesson.experiments.find(e=>e.id===editExpId);
+    exp.name = name; exp.desc = desc; exp.wow = wow;
+    exp.materials = materials; exp.steps = steps;
+    toast('Tajriba saqlandi ✓');
+  } else {
+    lesson.experiments.push({id:Date.now(), name, desc, wow, materials, steps});
+    toast('Tajriba qo\'shildi ✓');
+  }
+  saveData();
+  closeExpModal();
+  if(currentView==='detail') renderDetail(editExpLessonId);
+  else if(currentView==='wow') renderWow();
+}
+
+function closeExpModal() {
+  document.getElementById('exp-modal').classList.remove('open');
+  editExpId = null; editExpLessonId = null; editExpData = null;
+}
+
+// ═══════════════════════════════════════════════════
+// DELETE
+// ═══════════════════════════════════════════════════
+function confirmDelete(id) {
+  const lesson = DATA.find(l=>l.id===id);
+  document.getElementById('confirm-title').textContent = 'Darsni o\'chirish';
+  document.getElementById('confirm-msg').textContent = `"${lesson?.title}" darsini o'chirishni tasdiqlang. Bu amal qaytarib bo'lmaydi.`;
+  document.getElementById('confirm-ok-btn').onclick = () => { deleteLesson(id); closeConfirm(); };
+  document.getElementById('confirm-modal').classList.add('open');
+}
+
+function confirmDeleteExp(lessonId, expId) {
+  const lesson = DATA.find(l=>l.id===lessonId);
+  const exp = lesson?.experiments.find(e=>e.id===expId);
+  document.getElementById('confirm-title').textContent = 'Tajribani o\'chirish';
+  document.getElementById('confirm-msg').textContent = `"${exp?.name.replace(' ⭐','')}" tajribasini o'chirishni tasdiqlang.`;
+  document.getElementById('confirm-ok-btn').onclick = () => { deleteExp(lessonId, expId); closeConfirm(); };
+  document.getElementById('confirm-modal').classList.add('open');
+}
+
+function deleteLesson(id) {
+  DATA = DATA.filter(l=>l.id!==id);
+  saveData();
+  toast('Dars o\'chirildi');
+  if(currentView==='detail') { backToDashboard(); }
+  else renderDashboard();
+}
+
+function deleteExp(lessonId, expId) {
+  const lesson = DATA.find(l=>l.id===lessonId);
+  lesson.experiments = lesson.experiments.filter(e=>e.id!==expId);
+  saveData();
+  toast('Tajriba o\'chirildi');
+  if(currentView==='detail') renderDetail(lessonId);
+  else if(currentView==='wow') renderWow();
+}
+
+function confirmReset() {
+  document.getElementById('confirm-title').textContent = 'Barcha ma\'lumotlarni tozalash';
+  document.getElementById('confirm-msg').textContent = 'Barcha darslar va tajribalar o\'chiriladi va boshlang\'ich ma\'lumotlar tiklanadi. Bu amal qaytarib bo\'lmaydi!';
+  document.getElementById('confirm-ok-btn').onclick = () => {
+    DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+    saveData();
+    closeConfirm();
+    showView('dashboard');
+    toast('Ma\'lumotlar tiklandl ✓');
+  };
+  document.getElementById('confirm-modal').classList.add('open');
+}
+
+function closeConfirm() { document.getElementById('confirm-modal').classList.remove('open'); }
+
+// ═══════════════════════════════════════════════════
+// IMPORT / EXPORT
+// ═══════════════════════════════════════════════════
+function exportData() {
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'fizika-amaliy-7-8-9-darslar.json';
+  a.click();
+  toast('JSON fayl yuklab olindi ✓');
+}
+
+function importData(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(!Array.isArray(imported)) throw new Error('Noto\'g\'ri format');
+      DATA = migrate(imported);
+      saveData();
+      showView('dashboard');
+      toast(`${imported.length} ta dars import qilindi ✓`);
+    } catch(err) {
+      toast('Xato: Noto\'g\'ri JSON format', 'error');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ═══════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════
+function toast(msg, type) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.borderColor = type==='error' ? 'rgba(239,68,68,0.4)' : 'var(--border2)';
+  el.style.color = type==='error' ? 'var(--red)' : 'var(--text)';
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+// ═══════════════════════════════════════════════════
+// CLOSE MODALS ON BACKDROP CLICK
+// ═══════════════════════════════════════════════════
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', e => {
+    if(e.target === overlay) {
+      if(overlay.id==='lesson-modal') closeLessonModal();
+      else if(overlay.id==='exp-modal') closeExpModal();
+      else if(overlay.id==='confirm-modal') closeConfirm();
+    }
+  });
+});
+
+// ═══════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════
+applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+const savedGrade = parseInt(localStorage.getItem(GRADE_KEY) || '7', 10);
+loadData();
+switchGrade([7,8,9].includes(savedGrade) ? savedGrade : 7);
+updateStats();
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+name: Build APK
+
+# APK ni GitHub serverlarida avtomatik quradi (kompyuteringizga hech narsa o'rnatish shart emas).
+# Ishga tushirish: repozitoriyga push qiling YOKI Actions bo'limidan "Run workflow" tugmasini bosing.
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kodni yuklab olish
+        uses: actions/checkout@v4
+
+      - name: JDK 17 o'rnatish
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Android SDK tayyorlash
+        uses: android-actions/setup-android@v3
+
+      - name: Gradle wrapper'ga ruxsat
+        run: chmod +x ./gradlew
+
+      - name: Debug APK qurish
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
+
+      - name: APK ni artifact sifatida yuklash
+        uses: actions/upload-artifact@v4
+        with:
+          name: AmaliyFizika-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error

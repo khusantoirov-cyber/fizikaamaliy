@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'uz.muhandisd.amaliyfizika'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "uz.muhandisd.amaliyfizika"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            // Imzo: ishlab chiqarish uchun o'z keystore'ingizni qo'shing.
+            // Hozircha shrinking o'chirilgan — barqaror qurilish uchun.
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            // debug varianti debug-key bilan avtomatik imzolanadi (o'rnatishga tayyor)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.activity:activity:1.9.3'
+}
